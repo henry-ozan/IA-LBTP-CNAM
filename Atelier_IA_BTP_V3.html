@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f5f7fc">
+<title>Atelier IA × BTP — Fabrique ton parcours</title>
+<style>:root{--ink:#192c49;--muted:#51627d;--line:#dbe4f2;--paper:#fff;--bg:#f5f7fc;--blue:#3159dd;--teal:#137568;--violet:#7050ad;--orange:#a04a29;--shadow:0 12px 34px #233d7410;font-family:Inter,"Segoe UI",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+*{box-sizing:border-box}body{margin:0}h1,h2,h3,p{margin:0}h2{font-size:clamp(24px,3vw,31px);line-height:1.16;letter-spacing:-.03em}h3{line-height:1.25}p+p{margin-top:10px}a{color:#284dbd;text-underline-offset:3px}button,input,select,textarea{font:inherit}button{cursor:pointer;color:inherit}button,a,input,textarea,select,summary{touch-action:manipulation}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #455ce4;outline-offset:3px}[hidden]{display:none!important}.skip{position:absolute;top:-50px;left:10px;z-index:9;background:#fff;padding:8px}.skip:focus{top:5px}.wrap{width:min(1160px,calc(100% - 52px));margin:auto}
+.top{background:#fff;border-bottom:1px solid var(--line)}.top-inner{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:10px;color:var(--ink);font-weight:800;text-decoration:none;white-space:nowrap}.brand b{color:var(--blue)}.brand-icon{background:var(--blue);color:#fff;display:grid;place-items:center;width:32px;height:32px;border-radius:10px;font-size:13px}.top nav{display:flex;gap:4px;flex-wrap:wrap}.top nav a{text-decoration:none;padding:8px 13px;border-radius:9px;color:var(--muted);font-size:14px;font-weight:650}.top nav a[aria-current]{color:#2849ad;background:#eaf0ff}
+.button{border:1px solid var(--line);border-radius:10px;background:#fff;padding:8px 13px;min-height:42px;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;color:var(--ink);font-size:13px;font-weight:700}.button:hover{background:#eef3ff;border-color:#aebfeb}.primary{background:var(--blue);border-color:var(--blue);color:#fff}.primary:hover{background:#2445bc;color:white}.quiet{background:transparent}
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:16px;align-items:stretch;margin:26px 0 30px;background:linear-gradient(128deg,#fff 12%,#eef1ff 74%,#e8f7f5);border:1px solid #dce5f6;border-radius:23px;overflow:hidden;box-shadow:var(--shadow)}.hero-copy{padding:30px 35px;position:relative;z-index:1}.eyebrow{font-size:11px;letter-spacing:.13em;text-transform:uppercase;font-weight:800;color:#3454ab;margin-bottom:8px}.hero h1{font-size:clamp(33px,5vw,62px);letter-spacing:-.064em;font-weight:820;line-height:.99;margin:10px 0 15px}.hero h1 span{color:#3659cc}.hero-copy>p:not(.eyebrow){max-width:480px;color:var(--muted);font-size:15px}.hero .button{margin-top:18px}
+.hero-map{position:relative;min-height:255px;background-image:radial-gradient(#a8b9dc 1px,transparent 1px);background-size:17px 17px;margin:15px 15px 15px 0;border-radius:15px;overflow:hidden}.signal{position:absolute;z-index:2;background:#fff;border:1px solid #ced9ef;border-radius:12px;box-shadow:0 5px 13px #324b8821;padding:10px 12px;font-size:13px;font-weight:750;white-space:nowrap}.signal i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--accent);margin-right:7px}.signal.a{top:15%;left:8%;--accent:#5274e9}.signal.b{top:43%;left:15%;--accent:#2b9b84}.signal.c{top:71%;left:8%;--accent:#9a72da}.signal.out{left:57%;top:39%;background:#243d94;color:#fff;border-color:#243d94;padding:14px 15px}.signal.out span{display:block;color:#d1dcff;font-size:10px;letter-spacing:.1em;margin-bottom:3px}.signal.out strong{font-size:17px}.connection{position:absolute;left:27%;width:33%;border-right:2px solid #aabdea;border-left:0}.connection.one{top:22%;height:28%;border-top:2px solid #aabdea;border-radius:0 16px 0 0}.connection.two{top:50%;width:31%;border-top:2px solid #aabdea}.connection.three{top:50%;height:28%;border-bottom:2px solid #aabdea;border-radius:0 0 16px 0}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 16px}.progress{display:grid;gap:5px;min-width:135px;font-size:12px;font-weight:700;color:var(--muted)}progress{width:100%;height:8px;accent-color:#4971e5}.workspace{display:grid;grid-template-columns:278px minmax(0,1fr);gap:16px;align-items:start}.rail{background:#edf3fc;background-image:radial-gradient(#bdcae0 1px,transparent 1px);background-size:16px 16px;border:1px solid var(--line);border-radius:16px;padding:13px}.route-nodes{display:grid;gap:11px;position:relative}.route-nodes:before{content:"";position:absolute;left:30px;top:20px;bottom:20px;width:2px;background:#b8caed}.node{position:relative;display:grid;grid-template-columns:32px 1fr auto;align-items:center;gap:9px;text-align:left;width:100%;min-height:66px;padding:10px;background:#fff;border:1px solid #cfdbef;border-radius:12px;box-shadow:0 2px 5px #28487a0a}.node:hover,.node[aria-pressed=true]{border-color:#5974dd}.node[aria-pressed=true]{box-shadow:0 0 0 2px #b4c2ff;background:#f9faff}.node .badge{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--tint);color:var(--accent);font-weight:850;font-size:13px}.node b{font-size:13px;display:block}.node small,.extra-node small{display:block;font-size:11px;color:var(--muted);margin-top:2px}.node .checkmark{font-size:15px;color:#137568;font-weight:850}.node[data-color=blue]{--accent:#335bd5;--tint:#e7edff}.node[data-color=teal]{--accent:#137568;--tint:#dff6ee}.node[data-color=violet]{--accent:#7050ad;--tint:#f2eaff}.node[data-color=orange]{--accent:#a04a29;--tint:#ffefe7}.extra-node{width:100%;margin-top:13px;text-align:left;background:#f8fbff;border:1px dashed #97add6;border-radius:11px;padding:9px 11px;position:relative;font-size:12px}.extra-node span{position:absolute;right:10px;top:10px}
+.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:23px 25px;box-shadow:var(--shadow);min-width:0}.panel h3{font-size:23px;letter-spacing:-.025em;margin:3px 0 8px}.lead,.sub{color:var(--muted);font-size:14px}.lead{margin-bottom:16px}.sub{margin-bottom:15px}.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:15px 0}.field-grid .wide{grid-column:1/-1}label.field{display:grid;gap:5px;color:var(--ink);font-size:13px;font-weight:700}input[type=text],select,textarea{width:100%;background:#fff;border:1px solid #bdcce6;border-radius:9px;padding:9px 10px;color:var(--ink);font-size:14px;min-height:42px}textarea{resize:vertical}.hint{padding:11px 13px;background:#edf4ff;border-left:3px solid #5b7bec;border-radius:0 9px 9px 0;margin:13px 0;font-size:13px}.warn{background:#fff4e8;border-left-color:#b46b33}.row{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.actionbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:18px;padding-top:13px}.tick{display:flex;align-items:flex-start;gap:8px;font-size:13px;font-weight:650}.tick input{width:18px;height:18px;flex-shrink:0;margin:2px 0 0;accent-color:#268673}.steps{padding-left:20px;margin:12px 0}.steps li{padding:3px 0 5px 3px;font-size:14px}.snippet{background:#f3f6ff;border:1px solid #dfe7fb;border-radius:11px;margin:12px 0;overflow:hidden}.snippet>div{display:flex;justify-content:space-between;align-items:center;padding:7px 10px;border-bottom:1px solid #dfe7fb;font-size:12px;font-weight:750}.snippet pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:0;padding:11px 13px;font:12.5px/1.55 ui-monospace,Consolas,monospace;max-height:290px;overflow:auto}.snippet .button{min-height:32px;padding:4px 8px;font-size:12px}.proof{font-size:13px;color:#205d53;background:#eaf7f2;padding:10px 12px;border-radius:8px;margin:10px 0}.micro{font-size:12px;color:var(--muted)}.skill-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.skill-card{padding:18px;background:#fff;border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:14px;min-width:0;box-shadow:var(--shadow)}.skill-card[data-color=blue]{--accent:#4365da}.skill-card[data-color=teal]{--accent:#218d7d}.skill-card[data-color=violet]{--accent:#9168c5}.skill-card small{font-weight:750;color:var(--accent)}.skill-card h3{margin:6px 0}.skill-card p,.skill-card summary{font-size:13px}.skill-card details{margin-top:10px}.skill-card details[open] .snippet{margin-bottom:2px}
+.extras{margin-top:20px;background:#fff;border:1px solid var(--line);border-radius:13px;padding:0 16px}.extras summary{cursor:pointer;padding:12px 0;font-weight:730;font-size:14px}.extras summary span{float:right;color:var(--muted);font-size:12px}.extra-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;padding-bottom:14px}.extra-grid article{padding:13px;border-radius:10px;background:#f4f7fc;font-size:13px}.extra-grid h3{font-size:15px;margin-bottom:8px}.extra-grid a{display:inline-block;margin-top:7px}.sample{min-height:250px}.sample-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.sample-tabs [aria-pressed=true]{background:#e9f0ff;color:#2745a9}.sample-tabs .button{min-height:38px}
+footer{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:16px 0 23px;color:var(--muted);font-size:11px}dialog{width:min(600px,calc(100vw - 24px));padding:18px;border:1px solid var(--line);border-radius:14px;color:var(--ink)}dialog::backdrop{background:#18294e9c}.toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:5;background:#182c53;color:#fff;padding:8px 14px;border-radius:9px;width:max-content;max-width:90vw;font-size:13px}
+@media(max-width:850px){.wrap{width:calc(100% - 32px)}.workspace{grid-template-columns:225px minmax(0,1fr)}.hero-copy{padding:22px}.signal.out{left:54%}.skill-grid{grid-template-columns:1fr}.top-inner{gap:10px}}
+@media(max-width:650px){.wrap{width:calc(100% - 24px)}.top-inner{flex-wrap:wrap;justify-content:space-between;padding:9px 0;gap:7px}.top nav{order:3;width:100%;gap:0}.top nav a{padding:6px 8px;font-size:12px}.top-save{min-height:34px;padding:5px 8px}.hero{grid-template-columns:1fr;margin-top:16px;gap:0}.hero-copy{padding:19px}.hero-map{min-height:165px;margin:0 10px 10px}.signal{font-size:11px;padding:7px 8px}.signal.out{padding:8px 10px;left:55%;top:37%}.signal.out strong{font-size:14px}.hero h1 br{display:none}.workspace{grid-template-columns:minmax(0,1fr)}.rail{padding:9px}.route-nodes{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.route-nodes:before{display:none}.node{grid-template-columns:24px minmax(0,1fr) auto;padding:6px;min-height:48px;gap:5px}.node .badge{width:23px;height:23px}.node b{font-size:12px}.node small{display:none}.panel{padding:15px}.panel h3{font-size:21px}.section-head{align-items:start;gap:9px}.progress{min-width:86px;font-size:10px}.extra-grid,.field-grid{grid-template-columns:1fr}.extras summary span{float:none;margin-left:4px}footer{flex-wrap:wrap}}
+
+@media (min-width:651px) and (max-width:850px){.signal.a,.signal.b,.signal.c{left:5%;font-size:11px;padding:8px}.signal.out{right:3%;left:auto;padding:9px}.signal.out strong{font-size:13px}.signal.out span{font-size:9px}}
+
+@media (max-width:360px){.signal.out{right:2%;left:auto}.signal.a,.signal.b,.signal.c{left:4%;font-size:10px}}
+
+.hero-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.hero-actions .button{margin:0}
+.view{scroll-margin-top:16px}
+.section-head .sub{margin:7px 0 0}
+.case-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.tool-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;align-items:start}
+.case-card,.tool-card{min-width:0;background:white;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+.case-card,.tool-card{--accent:#4365da;--tint:#eef2ff}
+.case-card[data-color=teal],.tool-card[data-color=teal]{--accent:#137568;--tint:#eaf7f2}
+.case-card[data-color=violet],.tool-card[data-color=violet]{--accent:#7050ad;--tint:#f4eefb}
+.case-card[data-color=orange],.tool-card[data-color=orange]{--accent:#a04a29;--tint:#fff2e8}
+.skill-card[data-color=orange]{--accent:#a04a29}
+.case-card{padding:18px;display:flex;flex-direction:column;align-items:start;gap:9px}
+.case-card small,.tool-card small{color:var(--accent);font-weight:800}
+.case-card h3{font-size:18px;letter-spacing:-.02em}
+.case-card p,.tool-content p{font-size:14px;color:var(--muted)}
+.case-card details{font-size:13px;width:100%;border-top:1px solid var(--line);margin-top:auto}
+.case-card details p{font-size:13px}
+.case-card summary,.find-skill summary{min-height:44px;cursor:pointer;padding:11px 0;font-weight:700}
+.case-card .button{background:var(--tint);border-color:transparent}
+.tool-card{overflow:hidden}
+.tool-card summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:78px;padding:14px 19px;background:var(--tint);list-style:none;cursor:pointer}
+.tool-card summary::-webkit-details-marker{display:none}
+.tool-card summary::after{content:"+";color:var(--accent);font-size:23px;line-height:1}
+.tool-card[open] summary::after{content:"−"}
+.tool-card summary:focus-visible{outline-offset:-4px}
+.tool-card summary span{display:grid;gap:4px}
+.tool-card summary strong{font-size:17px}
+.tool-content{padding:16px 19px}
+.tool-content p.proof{color:#205d53}
+.tool-content .button{margin-top:5px}
+.source-list{padding-left:21px;font-size:13px;color:var(--muted)}
+.source-list li{margin:5px 0}
+.find-skill{margin-top:18px;padding-top:12px;padding-bottom:12px}
+.find-skill summary{font-size:16px}
+@media(max-width:850px){.case-grid,.skill-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){
+  .case-grid,.tool-grid,.skill-grid{grid-template-columns:minmax(0,1fr)}
+  .top nav a{display:inline-flex;align-items:center;min-height:44px}
+  .button,.snippet .button,.top-save{min-height:44px}
+  .section-head:has(.button){flex-wrap:wrap}
+}
+
+.entry-links,.guide-grid,.shortcut-grid{display:grid;gap:13px}
+.entry-links{grid-template-columns:repeat(3,minmax(0,1fr));margin:0 0 26px}
+.entry-link{text-align:left;background:#fff;border:1px solid var(--line);border-radius:13px;padding:12px 15px;min-height:60px;display:grid;gap:3px}
+.entry-link:hover,.entry-link:focus-visible{border-color:#8da3ee;background:#f1f5ff}
+.entry-link strong{font-size:13px}
+.entry-link span{font-size:12px;color:var(--muted)}
+.guide-grid,.shortcut-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.guide-grid{margin:12px 0}
+.guide-card p,.shortcuts>p,.find-skill p{font-size:14px}
+.shortcuts{margin:14px 0 18px}
+.shortcut-grid{margin:12px 0}
+.shortcut-grid>div{padding:11px 13px;background:#f3f6fd;border:1px solid var(--line);border-radius:10px}
+.shortcut-grid dt,.find-skill h4{font-size:14px;font-weight:800;margin:0 0 5px}
+.shortcut-grid dd{font-size:13px;margin:0;color:var(--muted)}
+.find-skill .guide-grid>div{min-width:0}
+.find-skill code,.shortcut-grid code{overflow-wrap:anywhere}
+#reperes-outils,#raccourcis,#trouver-un-outil,.tool-card{scroll-margin-top:15px}
+@media(max-width:650px){
+  .entry-links,.guide-grid,.shortcut-grid{grid-template-columns:minmax(0,1fr)}
+  .entry-links{gap:7px;margin-bottom:20px}
+  .entry-link{min-height:53px;padding:8px 12px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Aller au parcours</a>
+<header class="top"><div class="wrap top-inner">
+  <a class="brand" href="#parcours" aria-label="Atelier IA × BTP, parcours"><span class="brand-icon">IA</span><span>Atelier IA <b>×</b> BTP</span></a>
+  <nav aria-label="Navigation principale"><a href="#parcours" data-tab="parcours">Parcours</a><a href="#comprendre" data-tab="comprendre">Skills et connecteurs</a><a href="#skills" data-tab="skills">Bibliothèque</a><a href="#situations" data-tab="situations">Situations</a><a href="#exemple" data-tab="exemple">Exemple</a></nav>
+  <button class="button quiet top-save" id="save-html">↓ Carte HTML</button>
+</div></header>
+<main id="main" class="wrap">
+  <section class="hero">
+    <div class="hero-copy"><p class="eyebrow">Atelier IA × BTP · Version 3</p><h1>Fabrique ton<br> parcours <span>de travail.</span></h1>
+      <p>Pars d’un problème rencontré sur le terrain. Prépare ton IA, teste une méthode, puis fais-lui créer la carte qui te permettra de refaire le travail.</p>
+      <div class="hero-actions"><button class="button primary" id="start">Choisir ma configuration <span aria-hidden="true">→</span></button><button class="button" data-go="situations">Partir d’une situation <span aria-hidden="true">→</span></button></div>
+    </div>
+    <div class="hero-map" aria-hidden="true"><div class="signal a"><i></i> Ton équipement</div><div class="signal b"><i></i> Un skill à tester</div><div class="signal c"><i></i> Ton problème</div><div class="signal out"><span>02 / TON OUTIL</span><strong>Ta carte métier</strong></div><span class="connection one"></span><span class="connection two"></span><span class="connection three"></span></div>
+  </section>
+  <div class="entry-links" aria-label="Accès directs">
+    <button class="entry-link" data-go="comprendre" data-target="reperes-outils"><strong>Comprendre les skills et les connecteurs</strong><span>Ce qu’ils font et ce que le raccourci @ ouvre</span></button>
+    <button class="entry-link" data-go="comprendre" data-target="trouver-un-outil"><strong>Trouver une méthode ou un outil</strong><span>Répertoires, GitHub et prompts de veille</span></button>
+    <button class="entry-link" data-go="situations"><strong>Imaginer mon prochain usage</strong><span>Six situations de travail pour démarrer</span></button>
+  </div>
+  <div id="view-parcours" class="view">
+    <div class="section-head"><div><p class="eyebrow">Feuille de route</p><h2>Ton parcours de préparation</h2></div><div class="progress" aria-live="polite"><span id="progress-text"></span><progress id="progress-bar" max="5" value="0"></progress></div></div>
+    <div class="workspace">
+      <aside class="rail" aria-label="Carte des étapes"><div id="route-nodes" class="route-nodes"></div><button class="extra-node" data-go="comprendre"><b>Comprendre et essayer</b><small>Skills · connecteurs · Revit · IA locale</small><span aria-hidden="true">→</span></button></aside>
+      <section id="step-panel" class="panel" aria-label="Consignes de l’étape"></section>
+    </div>
+  </div>
+  <section id="view-comprendre" class="view" hidden>
+    <div class="section-head"><div><h2>Comprendre et essayer</h2><p class="sub">Un même problème peut demander une méthode, une source à consulter ou un logiciel à interroger. Repère ce dont tu as besoin.</p></div><button class="button" data-go="parcours">Revenir à mon parcours →</button></div>
+    <div id="reperes-outils" class="guide-grid">
+      <article class="panel guide-card">
+        <h3>Skill · comment faire</h3>
+        <p>Un skill enregistre une méthode que tu peux réutiliser. Dans <code>SKILL.md</code>, le nom et la description aident l’assistant à le repérer. Lorsqu’il est sélectionné ou jugé pertinent, l’assistant peut charger les instructions et les ressources associées.</p>
+        <p><strong>Exemple BTP</strong> · Comparer deux devis en citant les lignes sources, en recalculant les totaux et en signalant les quantités à confirmer.</p>
+        <div class="row"><button class="button" data-go="comprendre" data-target="essai-skill">Tester sur deux devis →</button><button class="button" data-go="skills">Lire les cinq méthodes →</button></div>
+      </article>
+      <article class="panel guide-card">
+        <h3>Connecteur · où chercher ou agir</h3>
+        <p>Associe d’abord le service avec ton compte, puis choisis-le dans le chat. Le connecteur peut lire ou agir selon les droits accordés et les fonctions qu’il expose. Après une recherche, ouvre la source renvoyée pour la contrôler.</p>
+        <p><strong>Exemple BTP</strong> · Retrouver le plan P02 dans Drive et vérifier son indice dans le cartouche. Un serveur <strong>MCP</strong> peut aussi donner accès à un outil spécialisé, par exemple lire la vue active dans Revit.</p>
+        <div class="row"><button class="button" data-go="comprendre" data-target="essai-connecteur">Tester la recherche d’un plan →</button></div>
+      </article>
+    </div>
+    <section id="raccourcis" class="panel shortcuts" aria-labelledby="shortcuts-title">
+      <h3 id="shortcuts-title">Que taper pour appeler un skill ou un connecteur ?</h3>
+      <p>Quand un menu s’ouvre, sélectionne l’élément proposé, puis ajoute ta demande. Le raccourci dépend de l’assistant et des accès disponibles.</p>
+      <dl class="shortcut-grid">
+        <div><dt>Gemini</dt><dd><b>Skill</b> · <code>/</code> ou <code>@</code> selon le déploiement, puis choisis la compétence. <b>Connecteur</b> · <code>@</code>, puis sélectionne Drive si l’application est activée.</dd></div>
+        <div><dt>ChatGPT</dt><dd><b>Skill</b> · <code>@</code>, puis sélectionne la méthode si elle apparaît. <b>Connecteur</b> · <code>@</code> ou <code>+</code> et choisis l’app associée dans ton compte.</dd></div>
+        <div><dt>Claude (chat)</dt><dd><b>Skill</b> · active-le dans Personnaliser → Skills, puis demande de l’utiliser par son nom. <b>Connecteur</b> · ouvre <code>+</code> ou <code>/</code> → Connecteurs.</dd></div>
+        <div><dt>Codex CLI et Claude Code</dt><dd><b>Skill</b> · <code>$nom-du-skill</code> ou <code>/skills</code> dans Codex CLI, <code>/nom-du-skill</code> dans Claude Code. <b>MCP</b> · une fois le serveur configuré, nomme l’outil à utiliser dans ta demande.</dd></div>
+      </dl>
+      <p class="hint">Menu absent ? Colle les instructions du skill dans le chat. Pour tester un connecteur sans le connecter, joins les deux pièces fictives à comparer.</p>
+    </section>
+    <div id="tool-grid" class="tool-grid"></div>
+    <section id="trouver-un-outil" class="panel find-skill" aria-labelledby="find-title">
+      <h3 id="find-title">Trouver un skill ou un connecteur</h3>
+      <p>Écris le résultat que tu veux d’abord. Par exemple « comparer deux révisions de devis » ou « lire les plans d’un dossier Drive ».</p>
+      <div class="guide-grid">
+        <div>
+          <h4>Chercher un skill</h4>
+      <ol class="steps">
+        <li>Commence dans ton assistant ou sur le Web avec <code>agent skill construction daily report SKILL.md</code>.</li>
+        <li>Sur GitHub, ouvre le fichier <code>SKILL.md</code> dans le dépôt d’origine. Lis le déclencheur, les étapes, les fichiers requis et les scripts éventuels.</li>
+        <li>Vérifie la licence, l’activité et la compatibilité. Pour un premier test, choisis une méthode à lire et essaie-la sur une donnée fictive.</li>
+      </ol>
+      <ul class="source-list">
+        <li><a href="https://github.com/constructelligence-lab/construction-agent-skills" target="_blank" rel="noopener">Constructelligence · méthodes de chantier</a> — coordination, préparation de chantier et questions techniques.</li>
+        <li><a href="https://github.com/openai/skills" target="_blank" rel="noopener">OpenAI · catalogue Codex</a> — exemples de méthodes pour fabriquer et tester des outils.</li>
+        <li><a href="https://github.com/anthropics/skills" target="_blank" rel="noopener">Anthropic · exemples de skills</a> — fichiers de travail et structure des méthodes. Consulte la licence du dossier choisi.</li>
+      </ul>
+      <div id="watch-prompt"></div>
+        </div>
+        <div>
+          <h4>Chercher un connecteur</h4>
+          <ol class="steps">
+            <li>Dans Gemini utilise Paramètres → Applis connectées. Dans ChatGPT ouvre le répertoire d’apps. Dans Claude, utilise Personnaliser → Connecteurs.</li>
+            <li>Vérifie le compte, les droits de lecture ou d’écriture et l’action exacte. Cherche dans la documentation du service si le répertoire laisse un doute.</li>
+            <li>Pour un logiciel métier, cherche aussi sur le Web ou GitHub le nom du logiciel, sa version et <code>MCP</code>. Regarde qui publie le projet, les versions supportées, la licence et les actions réellement disponibles.</li>
+            <li>Teste une lecture simple avec une pièce connue, puis compare le résultat au document ou au logiciel.</li>
+          </ol>
+          <ul class="source-list">
+            <li><a href="https://support.google.com/gemini/answer/13695044?hl=fr" target="_blank" rel="noopener">Applis connectées Gemini</a></li>
+            <li><a href="https://help.openai.com/en/articles/20001494-connecting-and-managing-app-accounts-in-chatgpt" target="_blank" rel="noopener">Apps ChatGPT</a></li>
+            <li><a href="https://support.claude.com/fr/articles/11176164-utiliser-les-connecteurs-pour-etendre-les-capacites-de-claude" target="_blank" rel="noopener">Connecteurs Claude</a></li>
+            <li><a href="https://github.com/bimwright/rvt-mcp" target="_blank" rel="noopener">Exemple de dépôt · BIMwright pour Revit</a></li>
+          </ul>
+          <div id="watch-connector"></div>
+        </div>
+      </div>
+    </section>
+  </section>
+  <section id="view-skills" class="view" hidden>
+    <div class="section-head"><div><h2>Bibliothèque de skills</h2></div><button class="button" data-go="parcours" data-step="skill">Voir l’installation →</button></div>
+    <p class="lead">Ouvre un skill pour lire ses consignes, télécharger son dossier ou copier la méthode dans ton assistant.</p>
+    <div class="row"><button class="button" data-go="comprendre" data-target="trouver-un-outil">Chercher d’autres skills sur le Web et GitHub →</button></div>
+    <div id="skill-grid" class="skill-grid"></div>
+  </section>
+  <section id="view-situations" class="view" hidden>
+    <div class="section-head"><div><h2>La prochaine fois que…</h2><p class="sub">Essaie un cas avec ses données fictives, puis reprends-le pour préparer ta propre carte.</p></div><button class="button" data-go="parcours" data-step="problem">Décrire mon propre cas →</button></div>
+    <p class="hint">Pars d’un moment précis que tu as vécu au travail. Qu’avais-tu sous la main ? Quelle décision prenait du temps ? Qu’aurais-tu vérifié avant de réutiliser le résultat ?</p>
+    <div id="case-grid" class="case-grid"></div>
+  </section>
+  <section id="view-exemple" class="view" hidden>
+    <div class="section-head"><div><p class="eyebrow">02 / Exemple de résultat</p><h2>Une carte pour traiter un plan révisé</h2></div><button class="button" id="download-example">↓ Télécharger l’exemple HTML</button></div>
+    <div id="sample-demo" class="panel sample"></div>
+  </section>
+  <footer><span>Atelier IA × BTP · Accès et menus documentés le 16 novembre 2026.</span><button class="button quiet" id="reset">Réinitialiser ma progression</button></footer>
+</main>
+<dialog id="copy-dialog"><form method="dialog"><h2>Texte à copier</h2><p>Sélectionne ce texte puis utilise la commande Copier de ton appareil.</p><textarea id="copy-fallback" aria-label="Texte à copier" readonly rows="9"></textarea><button class="button primary">Fermer</button></form></dialog>
+<p class="toast" role="status" id="toast" hidden></p>
+<script id="skills-data" type="application/json">[{"id": "carte-metier", "name": "Fabriquer une carte métier", "tag": "Conception", "color": "blue", "summary": "Transformer une tâche récurrente en parcours que quelqu’un peut ouvrir, suivre et réutiliser.", "description": "Transforme un brief de tâche métier en parcours interactif HTML autonome. Utilise ce skill quand on demande une carte d’actions, un guide interactif ou une procédure testable à réutiliser.", "body": "1. Commence ta réponse par « Méthode carte métier ». Reformule le résultat attendu, les données disponibles et une preuve de réussite.\n2. Découpe la tâche en 3 à 5 actions observables. Pour chacune, fournis une action à faire, un prompt ou une consigne précise, un résultat attendu et une vérification. Ajoute une alternative quand un outil ou un fichier manque.\n3. Produis un seul fichier HTML autonome, lisible sur téléphone : CSS et JavaScript intégrés, navigation entre étapes, état d’avancement et liens officiels uniquement si vérifiés. Utilise des boutons accessibles, des intitulés explicites et aucune dépendance réseau pour les interactions essentielles.\n4. Inclus un mini-cas fictif et un test concret. Exemple : cliquer sur l’étape 2, cocher le contrôle et constater que l’avancement change. Si la persistance locale échoue, indique comment noter l’avancement.\n5. Fournis le fichier en téléchargement si l’environnement le permet. Sinon, livre un seul bloc HTML complet et explique comment l’enregistrer en UTF-8. Distingue les vérifications effectivement exécutées de celles à faire par l’utilisateur.", "test": "Utilise le skill carte-metier. Je veux une carte pour vérifier les quantités d’un petit devis de peinture. Fais un seul fichier HTML, trois étapes et un bouton qui valide un contrôle.", "proof": "La réponse commence par « Méthode carte métier ». La carte s’ouvre et le bouton modifie l’avancement.", "markdown": "---\nname: carte-metier\ndescription: \"Transforme un brief de tâche métier en parcours interactif HTML autonome. Utilise ce skill quand on demande une carte d’actions, un guide interactif ou une procédure testable à réutiliser.\"\n---\n\n# Fabriquer une carte métier\n\n1. Commence ta réponse par « Méthode carte métier ». Reformule le résultat attendu, les données disponibles et une preuve de réussite.\n2. Découpe la tâche en 3 à 5 actions observables. Pour chacune, fournis une action à faire, un prompt ou une consigne précise, un résultat attendu et une vérification. Ajoute une alternative quand un outil ou un fichier manque.\n3. Produis un seul fichier HTML autonome, lisible sur téléphone : CSS et JavaScript intégrés, navigation entre étapes, état d’avancement et liens officiels uniquement si vérifiés. Utilise des boutons accessibles, des intitulés explicites et aucune dépendance réseau pour les interactions essentielles.\n4. Inclus un mini-cas fictif et un test concret. Exemple : cliquer sur l’étape 2, cocher le contrôle et constater que l’avancement change. Si la persistance locale échoue, indique comment noter l’avancement.\n5. Fournis le fichier en téléchargement si l’environnement le permet. Sinon, livre un seul bloc HTML complet et explique comment l’enregistrer en UTF-8. Distingue les vérifications effectivement exécutées de celles à faire par l’utilisateur.\n", "archive": "UEsDBBQAAAAIAAAAIQC6t7I5AwMAAJoFAAAVAAAAY2FydGUtbWV0aWVyL1NLSUxMLm1kZVTLbtRAELz7K1rhumuJhEgoNxSIABEJsckHzI7buwPjGWceqxz5DW6Im8WVG7f4T/gSqmd28wBpD97xdHV1VbWXy2Xj1MBnpFVIvBw4GQ5Nx1EHMybj3RkdXQXlYu/DwJQdrYPhnjqmNP/QW6ZhnqSG2NGogvY5RDIucVA6mZ7eXl1+IJWTd37glq6TsSYyaab4xVhLN1m5jrwD4oAnacGVDHV/vn4TEO/iQjpvssH7R9g+l9tj8HqeuhzAiWNSa8s0f6cwT7l2C+1Rs8SkzTO6UOB/k8H3oc9+gqZ53tK5HwZ2YJeUAIzozTIX3f2kS9zb+u6fMrr73dInFn0yGuOHuphtUolUSuy6vMBppM47N0/yYCJwzVoOOe1H4LxjUVVYx2gSt81xS6/nCYqOgFUHvaHziYx3SnttyK8x4k7Gji19hAGkt0oDdkE9/jkTS496XUp7ZQIXSSHdMKaDkBpoZlPooC+EK3f+G+dAejdPwfRGK8Ft6dVnn1P1T1l45HCOmarBwPHiRm1FqNqKdrAcZrTNCYgH3+VClSJne3/lSYCgpImiHEWMmebJwqOtR8szOl+thNl7tVOrkl6JyjxthP+CnNqZTWEKBROiAvfUyHgjD6mGbadgPfxPAmQNi7g9iBi2QkyCU95Gcxge2A+hxtrQ2gvVCLU1x0IVLeQFyJiUwRem344WoKn6r7J4RR0mgbrCoEjOKtMoZlp+tFACDVyQACcxvHnR0junbS7KDcaZpVZR1JMNKU6VrRBzdeDU0ptbHkYrimlbV0G0tJi/SkLHC1xG1KS1lKUw/8ITFwzsF6jAVS4ljyRD6NwGK74yktaRQzS4LONYr5Xs5KS3PsND4zppDLihVDovkE/h2ua0pYt9fFF8iAPiX21Hu7C5t0OK2e1MwJLVQ9SAwyATr4zzTqKzC3yfrzVY1XCBBvQonhdnHlOruIE3mCXU9tdXF8uXWE2cGLcRHWDQk12ARX3PWuJfw3QLujnV5Zdvnzh3v4jl8yJ96tcK8ubQNn8BUEsBAhQDFAAAAAgAAAAhALq3sjkDAwAAmgUAABUAAAAAAAAAAAAAAIABAAAAAGNhcnRlLW1ldGllci9TS0lMTC5tZFBLBQYAAAAAAQABAEMAAAA2AwAAAAA="}, {"id": "controle-sur-pieces", "name": "Contrôler à partir des pièces", "tag": "Vérification", "color": "teal", "summary": "Relier chaque alerte à un document, isoler l’incertitude et formuler la question utile.", "description": "Vérifie les constats et les écarts dans des devis, plans, notes de chantier ou tableaux. Utilise ce skill pour comparer des pièces et justifier chaque conclusion avec une source identifiable.", "body": "1. Commence par « Contrôle sur pièces ». Liste les pièces disponibles et précise si elles sont comparables.\n2. Pour chaque ligne, indique point vérifié, valeur ou constat, source (document et repère ou page), statut et prochaine action. Emploie les statuts Confirmé, Contradictoire, Information manquante et À relire.\n3. Recalcule les montants et harmonise les unités lorsque c’est possible. Indique les bases HT/TTC et distingue fourniture seule et pose. Si le périmètre change, détaille la différence avant de comparer les totaux.\n4. Si une information manque ou qu’une ligne est illisible, formule une question vérifiable. Présente les chiffres non fournis comme inconnus.\n5. Termine par l’action prioritaire permettant au professionnel de trancher.", "test": "Utilise controle-sur-pieces. Devis A, ligne 3 : peinture 40 m² à 12 €/m² HT. Devis B, ligne 4 : peinture 30 m² à 13 €/m² HT. Compare et formule la première question à poser.", "proof": "Le résultat cite les lignes, trouve 480 € et 390 € HT et signale l’écart de 10 m² avant toute conclusion.", "markdown": "---\nname: controle-sur-pieces\ndescription: \"Vérifie les constats et les écarts dans des devis, plans, notes de chantier ou tableaux. Utilise ce skill pour comparer des pièces et justifier chaque conclusion avec une source identifiable.\"\n---\n\n# Contrôler à partir des pièces\n\n1. Commence par « Contrôle sur pièces ». Liste les pièces disponibles et précise si elles sont comparables.\n2. Pour chaque ligne, indique point vérifié, valeur ou constat, source (document et repère ou page), statut et prochaine action. Emploie les statuts Confirmé, Contradictoire, Information manquante et À relire.\n3. Recalcule les montants et harmonise les unités lorsque c’est possible. Indique les bases HT/TTC et distingue fourniture seule et pose. Si le périmètre change, détaille la différence avant de comparer les totaux.\n4. Si une information manque ou qu’une ligne est illisible, formule une question vérifiable. Présente les chiffres non fournis comme inconnus.\n5. Termine par l’action prioritaire permettant au professionnel de trancher.\n", "archive": "UEsDBBQAAAAIAAAAIQAxD/ltXQIAACIEAAAcAAAAY29udHJvbGUtc3VyLXBpZWNlcy9TS0lMTC5tZF1Tu44TQRDM9ytaRwKSvYhXcukJCSSCExjy8Wyv3TA7MzcPi/B+g4zQFikZ2e2f8CVUz/oOQeCVZ6e6uqq6d71ed95MfEk2+JKC43WuaR2FLedu4GyTxCLBX9LFp/mUZBQmx1nhuZiSiUs7zydrEo6D8Xiw/g6SVxQdXqzIh9Lekd0bX4QThUrFbB2b+rWnj0WcZNwy5S/iHMVQE3pM0SRglS/KfIQm7fe55qJCkrLdVFYx1tUMmWQObKl68IABdDKwV7C26i+6Nfx2j+hKzc4/HSjm74QmRf7p0nXPeoCmiT04cE93P/4WESJ60HP3q6d3kssSy/3bQXIMXrZuURwT8lGDWYidvswgOxtUabnvnvd03VwvnpzsPK9I/CB6jEFQcFhGMJ9WdDCOa4vxPIrVveXHQ7AVyot2ThznY2LFRbPjJ0ABW8uiKqCZICxjdcY9vZ6iC+cJL7istkdJk/ZsCZhBbAmSIO6tH0OajNbSZPxNxWxZmedbNHbA9N2Lnt6zNc5Wt/BOIAGu5bI3CUcNRm+qlzKfMrmQchvr79tvnKEz5KxR9mi4pKHorcl4vtk83WyulAuRF/E73I7IAVQVtjNrW24cqP8gKKWoKU7zsaRlH3ewMsynYrB54DagGkdg2vDNAWLb5t5vozYvoejidi8bp+6b/J9Fy/ymwoNet3GSukETaXZWpBWqTwEoyK34POO2sHSNxcnsz9tl9xCW8McDt7jULxFrivZYA1+xR6962nCadKy6uA4ClvFi3hKSwCZ8R0C46CDIVN2EkbN+QJ6dmsWYvd1z6rs/UEsBAhQDFAAAAAgAAAAhADEP+W1dAgAAIgQAABwAAAAAAAAAAAAAAIABAAAAAGNvbnRyb2xlLXN1ci1waWVjZXMvU0tJTEwubWRQSwUGAAAAAAEAAQBKAAAAlwIAAAAA"}, {"id": "plan-revise", "name": "Traiter un plan révisé", "tag": "Coordination", "color": "violet", "summary": "Repérer les changements, leurs conséquences possibles et les personnes à consulter.", "description": "Prépare la coordination après un changement de plan, de cotes ou d’implantation. Utilise ce skill quand deux révisions sont fournies ou qu’un écart entre un plan et une autre pièce doit être traité.", "body": "1. Commence par « Revue de révision ». Identifie les deux pièces, leurs indices et les zones réellement comparables.\n2. Pour chaque changement décrit ou observé, indique avant, après, preuve, lot concerné, effet possible et contrôle à effectuer.\n3. Sépare les changements mesurés et les conséquences à confirmer. Une capture sans échelle ou sans cote fiable permet seulement une observation qualitative.\n4. Priorise les questions qui pourraient bloquer la fabrication, l’approvisionnement ou l’exécution. Prépare un message bref et ciblé pour le lot concerné.\n5. Termine par la donnée ou la validation encore nécessaire avant diffusion ou exécution.", "test": "Utilise plan-revise. Indice A, plan P02 : la porte P3 est à 60 cm de l’angle. Indice B, plan P02 : P3 est à 90 cm. Un interrupteur était prévu près de l’ancienne position. Prépare les points à vérifier.", "proof": "La réponse cite P02, retrouve les 30 cm et traite la position de l’interrupteur comme un point à vérifier.", "markdown": "---\nname: plan-revise\ndescription: \"Prépare la coordination après un changement de plan, de cotes ou d’implantation. Utilise ce skill quand deux révisions sont fournies ou qu’un écart entre un plan et une autre pièce doit être traité.\"\n---\n\n# Traiter un plan révisé\n\n1. Commence par « Revue de révision ». Identifie les deux pièces, leurs indices et les zones réellement comparables.\n2. Pour chaque changement décrit ou observé, indique avant, après, preuve, lot concerné, effet possible et contrôle à effectuer.\n3. Sépare les changements mesurés et les conséquences à confirmer. Une capture sans échelle ou sans cote fiable permet seulement une observation qualitative.\n4. Priorise les questions qui pourraient bloquer la fabrication, l’approvisionnement ou l’exécution. Prépare un message bref et ciblé pour le lot concerné.\n5. Termine par la donnée ou la validation encore nécessaire avant diffusion ou exécution.\n", "archive": "UEsDBBQAAAAIAAAAIQB8VNodIAIAAL0DAAAUAAAAcGxhbi1yZXZpc2UvU0tJTEwubWRVU71y1DAQ7vUUO6G98wwBmrRUdBmSPIDOXic72JJvJXkyVLwGHWUMLR1d/CY8Cd/KxxGaG2tX+v52b7/fu+BHvqJp8GGvPEti13FqVaYsMVzRxbWuy+SVafDUxqidBG8t8pOuT4lKoPbBh3seOWTquELt7KONmRPFQt3vL19ltHquTxu6yzKAilqm9EmGgY7Fhw6PyiOBDzJwLVGKgOxj0SAb0rEACozr0nrNBEYIw9mwiTM+mXyx4iTrE9C7KJnW71bJ6iWvS3Ph9rDtXtGtFVjP7zfidXHudUPv4whDQIB3ev5BH3kubK7O8uj5V0MfOmiQXhAPFFb9G3PaoVI0kYROcDR1duVzDPgFCA/DFlkbR3D4A7qNu2zoGn4t0iP4XiYLzwozSCEeEuu8LrsKbvf8jGx3p5HsaFIuM0NBNHi40GC3ue+hYoopCdhMEZpZ1584rN9qu82FtXFvGrr5O3bI/Scj0cipQP7ZECCQGUQEcwkYFHrRETB0h3G0fsoFOMljoPDwYMbNRS3YjlAv5p4mxqtMicspGZvm5nXbOCzJILZCMzfuLZJSiWprZDqgIOW6NcciMFkU4zWUwxDRU9vf3h9U2gqGcLBKfpo0buMMGyeEWYMfIbVsy3r+B2BR4D75e6aDcl8DRJLrUumg4v/AG/euoVuYkrCtERR0IMLsK42nGX66zRvii6BAszUK0dNQqZO+L3Xf8OaFLPcHUEsBAhQDFAAAAAgAAAAhAHxU2h0gAgAAvQMAABQAAAAAAAAAAAAAAIABAAAAAHBsYW4tcmV2aXNlL1NLSUxMLm1kUEsFBgAAAAABAAEAQgAAAFICAAAAAA=="}, {"id": "question-technique", "name": "Poser une question technique de chantier", "tag": "Chantier", "color": "orange", "summary": "Faire préciser un écart entre un plan et ce que tu observes sur le chantier.", "description": "Prépare une demande technique à partir d’un constat, d’une photo ou d’un extrait de plan lorsque la situation doit être clarifiée par un interlocuteur.", "body": "1. Commence par « Question technique ». Note le lieu, le lot et les références exactes des pièces consultées.\n2. Sépare ce que tu observes, ce que le plan indique et la décision encore attendue. Si une cote est illisible, indique la mesure à relever.\n3. Rédige un message court avec une seule question principale. Propose un destinataire ou une échéance uniquement si les éléments fournis le permettent.\n4. Indique le travail qui pourrait attendre la réponse et la pièce à joindre. Identifie les conséquences encore à vérifier et garde la demande au stade du brouillon.", "test": "Utilise question-technique. Le plan P03 indice B place une réservation sur l’axe C. La photo du niveau 1 montre une réservation à proximité de l’axe, sans cote lisible. Le lot ventilation attend une confirmation avant la pose. Prépare le message.", "proof": "Le message cite P03-B et l’axe C. Il demande une mesure ou une confirmation sans affirmer que la réservation est mal placée.", "credit": {"label": "D’après Constructelligence, rfi-drafting (CC BY 4.0) · adapté en français", "url": "https://github.com/constructelligence-lab/construction-agent-skills/tree/main/skills/rfi-drafting"}, "markdown": "---\nname: question-technique\ndescription: \"Prépare une demande technique à partir d’un constat, d’une photo ou d’un extrait de plan lorsque la situation doit être clarifiée par un interlocuteur.\"\n---\n\n# Poser une question technique de chantier\n\n1. Commence par « Question technique ». Note le lieu, le lot et les références exactes des pièces consultées.\n2. Sépare ce que tu observes, ce que le plan indique et la décision encore attendue. Si une cote est illisible, indique la mesure à relever.\n3. Rédige un message court avec une seule question principale. Propose un destinataire ou une échéance uniquement si les éléments fournis le permettent.\n4. Indique le travail qui pourrait attendre la réponse et la pièce à joindre. Identifie les conséquences encore à vérifier et garde la demande au stade du brouillon.\n\nD’après Constructelligence, rfi-drafting (CC BY 4.0) · adapté en français\nhttps://github.com/constructelligence-lab/construction-agent-skills/tree/main/skills/rfi-drafting\nLicence : https://creativecommons.org/licenses/by/4.0/\n", "archive": "UEsDBBQAAAAIAAAAIQB2Ju66cQIAADcEAAAbAAAAcXVlc3Rpb24tdGVjaG5pcXVlL1NLSUxMLm1kZVPLjtQwELznK1rLBaRJwmNPe2S5ICG0wIljj90zY3Ds0LZHcOM3uHFjAx/AgdvmT/gSypmZZaWVRpqk066uriq3bdsEHuSCPhVJ2cXQZjG74PDaWElG3VirF3R2pfM0sgqVIGRl4GCFbptp/k74mp2S/fv1WwlkYkiZ8+r4LjTuYo4Uy6lBPmdll4FFo+dAPmqqSJ4puVy4ziUb0TH/zJhrPKvbuHmSOgk0yIUs6qMpWYp2Z02LbZoHdBWT6ELztNQdnphmdhyyE22aJx1dxmGQYA6YN7/ozf0jN386eh0zmOHnpKyWh5hJMp4SQZjNPGlFSdiKTcY/xKPRzde1VqUoPoN56pqnHb07KmkWhpQLxTUo7yWtTjV/FMUFu3Coo5jsPBmXKjsMi0DgnCXYIsB0y8am8sQG5LxH59rL6hYDAIOkootZKl72ol3zrKO382TdtjpbGxJvK07RTLwXs8AmKf6OnKO6YNzIHoOvNI4QvB629XPgzA4zYHQ9Cca7eeKqcFnkhNoZBi/KzZOfp1pItMHA4NKyuOggdbHcNecdvTzRh1LKe3YeRByNOLDk56CBLvvVjELsk14HA+q6H6KrPUCzwEWMZCFQnZknoB+8O4iK9j38rE1agbasdkE/pZ4LIdp4sIXWGgu0jqFrmhcINo86XyfECunXgijAh22FX5FuXGuVN9BoSw8vL+n5ezrvHj+im9/ElkcEBBRooxzmH+xSs8t5TBd9v3V5V9adiUNv7uG2ntf/y/UGw7+Q2/QRtFKPmyP9wC70x8JdFs0rZ5bwX9BpllHBzYPvuBcA7aJue1+7kqR+/aUH4b75B1BLAQIUAxQAAAAIAAAAIQB2Ju66cQIAADcEAAAbAAAAAAAAAAAAAACAAQAAAABxdWVzdGlvbi10ZWNobmlxdWUvU0tJTEwubWRQSwUGAAAAAAEAAQBJAAAAqgIAAAAA"}, {"id": "planning-trois-semaines", "name": "Préparer les trois prochaines semaines", "tag": "Planning", "color": "blue", "summary": "Repérer ce qui pourrait bloquer le chantier avant que le retard se produise.", "description": "À partir d’un planning et d’informations de chantier, relève les contraintes des trois prochaines semaines, les tâches exposées et les décisions permettant d’avancer.", "body": "1. Commence par « Point à trois semaines ». Identifie la période, la version du planning et les tâches concernées.\n2. Pour chaque tâche, cherche les prérequis utiles dans les pièces fournies, comme une livraison, un accès, un visa ou la fin d’une autre intervention.\n3. Construis un tableau des blocages possibles avec la tâche, sa date, le prérequis, sa source, son état et la première vérification à faire.\n4. Distingue confirmé, incertain et absent. Écris « à désigner » quand aucun responsable n’est indiqué.\n5. Termine par les deux décisions ou vérifications à traiter en priorité, en justifiant l’ordre avec les dates fournies.", "test": "Utilise planning-trois-semaines. Planning P07-B : pose des portes le 18 juin, peinture le 20 après pose. Le courriel du fournisseur annonce une livraison entre les 17 et 21 juin. Aucun responsable du suivi n’est indiqué. Qu’est-ce qui peut bloquer ?", "proof": "Le résultat repère un risque sur la pose puis la peinture, cite le planning et le courriel, et marque le responsable comme « à désigner ».", "credit": {"label": "D’après Constructelligence, lookahead-constraint-sweep (CC BY 4.0) · adapté en français", "url": "https://github.com/constructelligence-lab/construction-agent-skills/tree/main/skills/lookahead-constraint-sweep"}, "markdown": "---\nname: planning-trois-semaines\ndescription: \"À partir d’un planning et d’informations de chantier, relève les contraintes des trois prochaines semaines, les tâches exposées et les décisions permettant d’avancer.\"\n---\n\n# Préparer les trois prochaines semaines\n\n1. Commence par « Point à trois semaines ». Identifie la période, la version du planning et les tâches concernées.\n2. Pour chaque tâche, cherche les prérequis utiles dans les pièces fournies, comme une livraison, un accès, un visa ou la fin d’une autre intervention.\n3. Construis un tableau des blocages possibles avec la tâche, sa date, le prérequis, sa source, son état et la première vérification à faire.\n4. Distingue confirmé, incertain et absent. Écris « à désigner » quand aucun responsable n’est indiqué.\n5. Termine par les deux décisions ou vérifications à traiter en priorité, en justifiant l’ordre avec les dates fournies.\n\nD’après Constructelligence, lookahead-constraint-sweep (CC BY 4.0) · adapté en français\nhttps://github.com/constructelligence-lab/construction-agent-skills/tree/main/skills/lookahead-constraint-sweep\nLicence : https://creativecommons.org/licenses/by/4.0/\n", "archive": "UEsDBBQAAAAIAAAAIQBJQ/CIpAIAALQEAAAgAAAAcGxhbm5pbmctdHJvaXMtc2VtYWluZXMvU0tJTEwubWR1Uzty1EAQzXWKLpNA1UriY5INsROqCByQEI5Grd3B0ox2PsJkTjkCGUXCbnEAAmerm3ASXo93YV2UA5U0o55+n35TlmVh1cBLGntlrbGrMnpnQhl4UMZyKFoO2psxGmeXdDbf0qh8NJ7a37dfk/17jDjmLWM75wcl5YFaJr1WNhr2C/Lcz9uJqedA2tno0T+yFAXKmDR6h3JBpSP8IpfH+bte4803owvzTr5i/tHOO21CxhrZDxwj0DIPNSmr2VdnRQmJxRO68vMO1Nnfd3wMsCheVHThhoFxXLTS/iddOVCl+dvh2LGW9ncVvW0ZAjsDYYrGeeeNa3khi4m9UKM2PXDpVBB8AEkrkqriZQWg5MWyTeJDzQJL9njyuREiPG8SSKRosgMK2vMvM2813h1aWCPOaVFByeKomeB2cHaBJSmt523In5MJilwStp2xh5kyqRQ9k4zHT6LO2ap4JbbYEH0GtxRV07NKeXxN77RaCQkXgmmEjppYS9ujCuC0KooxfKIi7wcw1lICr+ZdVDG7BDM9DxAFJpPY2hmdYyVz6JTxXBXnFV2aEGEs/IKXnfHDvFuAOVyNmJF0Uk2AhormL8hxkHGiAYITzMoiDfs72iRlW4jWkOU5jJAp4sjCDg4R7VqzSfOuKl5X9B45w/BzNPIAON2c5hBuPqAb7nOjDMwkxoVBQLyJQhOrjylIeCS1PdCcbyH33rs83Hgy0aooLiXZsG8bjsPQkfverCSt8Na5a7Vm1ZY6/5UbVoZPzCM9vbigNx/ovHr+jPa/SLVqBAeh0Hll5x+IR7GOcQzLul6ZuE5NhfzU+j+UslfNv20ILDF5gbk2fR9qBIdruR71YeNxTsU7o/MtW9IRWXuGaZCP6KK6cn5V91IVONTN5xr06+IPUEsBAhQDFAAAAAgAAAAhAElD8IikAgAAtAQAACAAAAAAAAAAAAAAAIABAAAAAHBsYW5uaW5nLXRyb2lzLXNlbWFpbmVzL1NLSUxMLm1kUEsFBgAAAAABAAEATgAAAOICAAAAAA=="}]</script>
+<script>"use strict";
+
+const initialHtml = "<!doctype html>\n" + document.documentElement.outerHTML;
+const skills = JSON.parse(document.getElementById("skills-data").textContent);
+const byId = id => document.getElementById(id);
+const routes = [
+  ["profile", "Choisir sa configuration", "Appareil, assistant, accès", "blue"],
+  ["skill", "Essayer un skill", "Installer ou reprendre la méthode", "teal"],
+  ["problem", "Décrire son problème", "Poser une question de travail", "violet"],
+  ["create", "Créer sa carte métier", "Emporter son brief et son prompt", "blue"],
+  ["check", "Ouvrir et vérifier", "Prouver qu’une étape fonctionne", "orange"]
+];
+const sources = {
+  claude: "https://support.claude.com/en/articles/12512180-use-skills-in-claude",
+  claudeCode: "https://code.claude.com/docs/en/skills",
+  codex: "https://learn.chatgpt.com/docs/build-skills",
+  chatgpt: "https://help.openai.com/en/articles/20001066-skills-in-chatgpt",
+  gemini: "https://support.google.com/gemini/answer/17094296?co=GENIE.Platform%3DDesktop&hl=fr",
+  geminiMobile: "https://support.google.com/gemini/answer/17094296?co=GENIE.Platform%3DAndroid&hl=fr",
+  geminiTransition: "https://support.google.com/gemini/answer/18560919?hl=fr",
+  geminiConnect: "https://support.google.com/gemini/answer/13695044?hl=fr",
+  chatgptConnect: "https://help.openai.com/en/articles/20001494-connecting-and-managing-app-accounts-in-chatgpt",
+  claudeConnect: "https://support.claude.com/fr/articles/11176164-utiliser-les-connecteurs-pour-etendre-les-capacites-de-claude"
+};
+const initialState = {
+  device: "", assistant: "", account: "", mode: "inconnu", skill: "carte-metier", caseId: "",
+  problem: "", inputs: "", result: "", proof: "", done: {}, check: ["", "", ""]
+};
+const memoryKey = "atelier-ia-btp-v1";
+let state = freshState();
+let active = "profile";
+let exampleIndex = 0;
+let toastTimer;
+let copyButton;
+let storageAvailable = true;
+
+function freshState() {
+  return { ...initialState, done: {}, check: ["", "", ""] };
+}
+
+try {
+  const raw = JSON.parse(localStorage.getItem(memoryKey) || "null");
+  if (raw && typeof raw === "object") {
+    for (const [field, value] of Object.entries(initialState)) {
+      if (typeof value === "string" && typeof raw[field] === "string") state[field] = raw[field];
+    }
+    if (raw.done && typeof raw.done === "object") {
+      for (const [key] of routes) state.done[key] = raw.done[key] === true;
+    }
+    if (Array.isArray(raw.check)) state.check = state.check.map((_, i) => typeof raw.check[i] === "string" ? raw.check[i] : "");
+  }
+} catch (_) {
+  storageAvailable = false;
+}
+
+function save() {
+  try { localStorage.setItem(memoryKey, JSON.stringify(state)); }
+  catch (_) { storageAvailable = false; }
+}
+
+function html(value) {
+  return String(value).replace(/[&<>"']/g, c => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[c]));
+}
+
+function tell(message) {
+  const notice = byId("toast");
+  notice.textContent = message;
+  notice.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { notice.hidden = true; }, 3300);
+}
+
+function snippet(title, text) {
+  return '<section class="snippet"><div><span>' + html(title) +
+    '</span><button class="button" type="button" data-copy>Copier</button></div><pre>' +
+    html(text) + '</pre></section>';
+}
+
+function download(name, data, type) {
+  const url = URL.createObjectURL(new Blob([data], {type}));
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = name;
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 12000);
+}
+
+async function copy(button) {
+  const text = button.closest(".snippet").querySelector("pre").textContent;
+  try {
+    await navigator.clipboard.writeText(text);
+    tell("Copié. Colle le texte dans ton assistant.");
+  } catch (_) {
+    const dialog = byId("copy-dialog");
+    copyButton = button;
+    byId("copy-fallback").value = text;
+    dialog.showModal();
+    byId("copy-fallback").select();
+  }
+}
+
+const devices = {"ordinateur":"Ordinateur","mobile":"Téléphone ou tablette"};
+const assistants = {"chatgpt":"ChatGPT (chat ou Travail)","gemini":"Gemini","claude":"Claude (chat)","codex":"Codex","claudeCode":"Claude Code","autre":"Autre assistant"};
+const accounts = {"personnel":"Compte personnel","scolaire":"Compte d’établissement","pro":"Compte professionnel"};
+const modes = {"inconnu":"À vérifier","skill":"Installation d’un skill accessible","prompt":"Méthode à copier dans le chat"};
+function selectField(title, key, values, empty) {
+  const options = Object.entries(values).map(([value,label]) =>
+    '<option value="' + html(value) + '"' + (state[key] === value ? ' selected' : '') + '>' + html(label) + '</option>');
+  if (empty) options.unshift('<option value="">' + html(empty) + '</option>');
+  return '<label class="field">' + html(title) + '<select data-field="' + key + '">' +
+    options.join("") + '</select></label>';
+}
+
+function field(title, key, placeholder, multiline = false) {
+  const start = '<label class="field wide">' + html(title);
+  const attrs = ' data-field="' + key + '" maxlength="500" placeholder="' + html(placeholder) + '"';
+  return start + (multiline ? '<textarea rows="2"' + attrs + '>' + html(state[key]) + '</textarea>'
+    : '<input type="text"' + attrs + ' value="' + html(state[key]) + '">') + '</label>';
+}
+
+function link(label, url) {
+  return '<a href="' + html(url) + '" target="_blank" rel="noopener">' + html(label) + ' →</a>';
+}
+
+function resetOutput() {
+  state.done.create = false;
+  state.done.check = false;
+  state.check = ["", "", ""];
+}
+
+function getSkill() { return skills.find(x => x.id === state.skill) || skills[0]; }
+
+function renderRail() {
+  const target = byId("route-nodes");
+  target.innerHTML = routes.map(([key,title,desc,color], index) =>
+    '<button class="node" data-step="' + key + '" data-color="' + color + '" aria-pressed="' + (active === key) +
+    '"><span class="badge">' + (index + 1) + '</span><span><b>' + title + '</b><small>' + desc + '</small></span>' +
+    (state.done[key] ? '<span class="checkmark" aria-label="Étape validée">✓</span>' : '') + '</button>').join("");
+  updateProgress();
+}
+
+function updateProgress() {
+  const count = routes.filter(([key]) => state.done[key]).length;
+  byId("progress-text").textContent = count + " étape" + (count === 1 ? "" : "s") + " sur 5 validée" + (count === 1 ? "" : "s");
+  byId("progress-bar").value = count;
+  byId("progress-bar").setAttribute("aria-label", "Progression du parcours");
+}
+
+function footerStep(key, text) {
+  const next = routes[routes.findIndex(step => step[0] === key) + 1];
+  return '<div class="actionbar"><label class="tick"><input type="checkbox" data-done="' + key + '"' +
+    (state.done[key] ? ' checked' : '') + '>' + html(text) + '</label>' +
+    (next ? '<button class="button primary" data-step="' + next[0] + '">Continuer →</button>' :
+      '<button class="button" data-go="exemple">Voir l’exemple →</button>') + '</div>';
+}
+
+function showProfile() {
+  let details = "";
+  if (state.assistant === "claude") details = "Dans Claude, cherche les réglages de création de fichiers, puis Personnaliser → Skills. Si le menu ou l’import apparaît, passe à l’étape 2." +
+    " " + link("Aide Claude", sources.claude);
+  if (state.assistant === "chatgpt") details = "Cherche Plugins → Skills. L’import de skills personnalisés est documenté pour certains espaces éligibles. Si le menu ou l’import manque sur ton compte, choisis « Méthode à copier dans le chat ». Les apps disponibles apparaissent parfois dans le menu + ou avec <code>@</code>." +
+    " " + link("Aide ChatGPT", sources.chatgpt);
+  if (state.assistant === "gemini") {
+    details = "Dans Gemini, cherche Personnaliser → Compétences. Google déploie ce menu sur les comptes personnels éligibles des 18 ans et plus." +
+      (state.account === "scolaire" || state.account === "pro" ? " Pour ton type de compte, Google annonce la transition en 2027. Si Compétences n’apparaît pas encore, choisis la méthode à copier." :
+        state.device === "mobile" ? " Sur téléphone ou tablette, commence par créer la compétence depuis le chat si le menu est disponible." : " Sur ordinateur, tu peux créer une compétence ou importer le fichier Markdown.") +
+      " " + link("Disponibilité et transition des Gems", sources.geminiTransition);
+  }
+  if (state.assistant === "claudeCode" || state.assistant === "codex") {
+    details = "Ouvre une session locale dans un dossier de travail. Si tu utilises cet appareil en accès distant, l’installation se fait sur l’ordinateur qui héberge la session.";
+  }
+  if (state.assistant === "autre") details = "Vérifie si l’assistant propose un espace pour ajouter un skill. Tu peux déjà suivre la méthode à copier et générer ta carte.";
+  if (!details) details = "Choisis d’abord ton assistant pour afficher la vérification à faire.";
+  return '<h3>Choisir sa configuration</h3><p class="sub">Regarde ce que ton appareil et ton compte te permettent de faire.</p>' +
+    '<div class="field-grid">' + selectField("Ton appareil", "device", devices, "Choisir un appareil") +
+    selectField("Ton assistant", "assistant", assistants, "Choisir un assistant") +
+    selectField("Ton type de compte · facultatif", "account", accounts, "À préciser") +
+    selectField("Ce que tu vois dans ton assistant", "mode", modes, "") + '</div>' +
+    '<div class="hint">' + details + '</div>' +
+    '<p class="micro">Tu peux commencer avec Gemini, ChatGPT ou Claude dans le navigateur. Pour les méthodes, vérifie le menu Skills ou Compétences. Pour les documents en ligne, vérifie le menu des apps connectées.</p>' +
+    '<div class="row"><button class="button" data-go="comprendre" data-target="raccourcis">Voir les raccourcis @, / et + →</button></div>' +
+    '<p class="proof"><strong>Test :</strong> ton assistant répond et tu as vérifié si son interface permet d’ajouter un skill.</p>' +
+    footerStep("profile", "J’ai identifié la configuration que je peux utiliser.");
+}
+
+function installGuide(skill) {
+  if (state.mode === "prompt") return '<p>Copie la méthode ci-dessous dans une nouvelle conversation avec ton assistant. Ajoute le prompt de test dans la même conversation.</p>';
+  const name = html(skill.id);
+  switch (state.assistant) {
+    case "gemini": {
+      const activate = '<li>Dans une discussion Gemini, saisis <code>/</code> ou <code>@</code> selon le menu proposé, sélectionne <code>' + name + '</code> puis envoie le test.</li>';
+      if (state.device === "mobile") {
+        return '<ol class="steps"><li>Ouvre « Lire ou copier la méthode ». Dans Gemini, écris « Crée une compétence en suivant ces instructions », puis colle le texte. Vérifie qu’elle a été enregistrée dans Personnaliser → Compétences.</li>' +
+          activate + '</ol><p class="micro">L’import direct de fichier est documenté sur le Web ou sur Mac. Si la création depuis le chat manque, copie la méthode et le test dans une même discussion.</p>' +
+          link("Aide Gemini sur mobile", sources.geminiMobile);
+      }
+      return '<ol class="steps"><li>Télécharge <code>SKILL.md</code>.</li><li>Dans Gemini sur le Web, ouvre Personnaliser → Compétences → Créer → Importer. Choisis le fichier Markdown et enregistre la méthode.</li>' +
+        activate + '</ol>' + link("Aide Gemini sur ordinateur", sources.gemini);
+    }
+    case "claude":
+      return '<ol class="steps"><li>Active la création de fichiers ou l’exécution de code dans les capacités de Claude.</li><li>Télécharge le ZIP. Dans Personnaliser → Skills, choisis Ajouter/Créer → Importer un skill, sélectionne le ZIP entier puis active-le.</li><li>Dans un chat, indique la méthode choisie et envoie le test.</li></ol>' +
+        link("Étapes officielles dans Claude", sources.claude);
+    case "claudeCode":
+    case "codex": {
+      const isCodex = state.assistant === "codex";
+      const directory = (isCodex ? ".agents/skills/" : ".claude/skills/") + skill.id + "/SKILL.md";
+      const invoke = (isCodex ? "$" : "/") + skill.id;
+      return '<ol class="steps"><li>Télécharge le ZIP et décompresse-le. Place le dossier du skill dans ton projet pour obtenir le chemin <code>' + html(directory) +
+        '</code>.</li><li>Ouvre la session dans ce projet et sélectionne le skill avec <code>' + html(invoke) +
+        '</code> si le client le propose. Envoie le test.</li></ol>' +
+        link("Installation et invocation", isCodex ? sources.codex : sources.claudeCode);
+    }
+    case "chatgpt":
+      return '<ol class="steps"><li>Dans un espace éligible, ouvre Plugins → Skills → Créer → Importer depuis l’ordinateur et ajoute le ZIP.</li><li>Dans une discussion, tape <code>@</code> et sélectionne <code>' + name + '</code> s’il apparaît. Envoie ensuite le test. Si le menu manque, utilise la méthode à copier.</li></ol>' +
+        link("Skills dans ChatGPT", sources.chatgpt);
+    default:
+      return '<p>Si ton assistant accepte les skills, utilise la méthode d’installation qu’il propose. Tu peux aussi copier la méthode ci-dessous pour réaliser le test dans le chat.</p>';
+  }
+}
+
+function downloadsFor(skill) {
+  return '<div class="row"><button class="button" data-download="zip" data-id="' + skill.id +
+    '">↓ ZIP du skill</button><button class="button" data-download="md" data-id="' + skill.id +
+    '">↓ SKILL.md</button></div>';
+}
+
+function showSetup() {
+  const skill = getSkill();
+  return '<h3>Essayer un skill</h3><p class="sub">Ouvre un <code>SKILL.md</code>, regarde quand la méthode s’applique et ce qu’elle demande de vérifier. Essaie-la ensuite sur les données fictives ci-dessous.</p>' +
+    '<div class="row"><button class="button" data-go="comprendre" data-target="raccourcis">Comment l’appeler dans mon IA ?</button><button class="button" data-go="comprendre" data-target="trouver-un-outil">Comment trouver une autre méthode ?</button></div>' +
+    '<div class="field-grid">' + selectField("Méthode à essayer", "skill", Object.fromEntries(skills.map(s => [s.id, s.name])), "") + selectField("Mode d’utilisation", "mode", modes, "") + '</div>' +
+    (state.device === "mobile" && state.mode !== "prompt" ? '<div class="hint">Si le menu ou le choix de fichier manque sur ton appareil, sélectionne « Méthode à copier dans le chat ».</div>' : '') +
+    downloadsFor(skill) + installGuide(skill) +
+    '<details' + (state.mode === "prompt" || (state.assistant === "gemini" && state.device === "mobile") ? ' open' : '') +
+    '><summary>Lire ou copier la méthode</summary>' + snippet("Méthode du skill", skill.markdown) + '</details>' +
+    snippet("Test à envoyer", skill.test) + '<p class="proof">' + html(skill.proof) + '</p>' +
+    '<p class="micro">Pour voir si la méthode est réutilisable, change une quantité dans le mini-cas et vérifie que l’assistant recalcule le résultat au lieu de reprendre le précédent.</p>' +
+    footerStep("skill", "J’ai testé le skill installé ou sa méthode copiée.");
+}
+
+function showProblem() {
+  const example = caseFields.find(item => item.id === state.caseId);
+  return '<h3>Décrire son problème</h3><p class="sub">Pense à la prochaine fois où une situation similaire se présentera. Décris le déclencheur, les pièces à disposition, le résultat utile et le contrôle à faire.</p>' +
+    '<div class="row"><button class="button" data-go="situations">Choisir une situation qui préremplit le brief →</button></div>' +
+    (example ? '<p class="micro">Situation de départ · ' + html(example.title) + '</p>' : '') +
+    '<div class="field-grid">' +
+    field("La difficulté rencontrée", "problem", "Ex. Je perds du temps à informer les lots après une révision de plan.", true) +
+    field("Les données dont tu disposes", "inputs", "Ex. Deux extraits anonymisés du plan et les indices A/B.") +
+    field("Ce que tu veux obtenir", "result", "Ex. Un relevé des écarts et un message au lot électricité.") +
+    field("Un test pour juger le résultat", "proof", "Ex. Retrouver le déplacement de la porte et la cote source.") +
+    '</div><p class="micro">Utilise des données fictives ou anonymisées. Les réponses du formulaire restent dans le navigateur tant que tu ne les copies ou ne les exportes pas.</p>' +
+    footerStep("problem", "J’ai décrit les données, le résultat et un contrôle vérifiable.");
+}
+
+function missionBrief() {
+  const example = caseFields.find(item => item.id === state.caseId);
+  return [
+    "# Ma carte métier — brief",
+    "Appareil : " + (devices[state.device] || "à préciser"),
+    "Assistant : " + (assistants[state.assistant] || "à préciser"),
+    "Compte : " + (accounts[state.account] || "à préciser"),
+    "Préparation : " + (modes[state.mode] || modes.inconnu),
+    "Méthode choisie : " + getSkill().name,
+    "", "## Mon cas",
+    "Problème : " + (state.problem.trim() || "[À compléter]"),
+    "Données : " + (state.inputs.trim() || "[À compléter]"),
+    "Résultat attendu : " + (state.result.trim() || "[À compléter]"),
+    "Contrôle attendu : " + (state.proof.trim() || "[À compléter]"),
+    ...(example ? ["", "## Pistes d’outils à adapter au besoin et aux accès", example.tools] : [])
+  ].join("\n");
+}
+
+function generationPrompt() {
+  const selected = getSkill();
+  const method = selected.id === "carte-metier" ? "" : "\n\n## Méthode métier à reprendre\n" + selected.body;
+  return missionBrief() + "\n\n" +
+    "Crée une carte interactive à partir du brief ci-dessus. " +
+    "Si un point essentiel est encore vide, propose une hypothèse claire ou pose une seule question ciblée. " +
+    "Fournis un seul fichier HTML autonome en français, adapté à mon appareil, avec 3 à 5 étapes cliquables, " +
+    "des actions et consignes à copier, des liens officiels lorsque vérifiés, des critères de réussite et des cases de progression. " +
+    "Utilise uniquement les outils réellement accessibles dans mon environnement et propose un chemin manuel quand un accès manque. " +
+    "Ajoute un exemple fictif permettant de tester mon contrôle. Vérifie qu’une étape s’ouvre, qu’une case modifie la progression et que la carte s’affiche sur petit écran. " +
+    "Indique les tests réellement exécutés et ceux qu’il me reste à faire. Donne-moi le HTML à télécharger. Si aucun téléchargement n’est disponible, fournis le code HTML complet à enregistrer en UTF-8." + method;
+}
+
+function showCreate() {
+  const incomplete = ["problem", "inputs", "result", "proof"].some(field => !state[field].trim());
+  return '<h3>Créer sa carte métier</h3><p class="sub">Copie la consigne complète dans l’assistant que tu viens de préparer.</p>' +
+    (incomplete ? '<p class="hint warn">Certains champs restent à compléter. <button class="button" data-step="problem">Revenir à mon brief</button></p>' : '') +
+    '<div class="row"><button class="button" data-download="brief">↓ Mon brief .md</button><button class="button" data-download="prompt">↓ Ma consigne .txt</button>' +
+    '<button class="button" data-go="exemple">Voir une carte terminée →</button></div>' +
+    snippet("Consigne personnalisée à donner à ton IA", generationPrompt()) +
+    (state.assistant === "gemini" ? '<p class="hint">Avec Gemini, tu peux coller cette consigne dans Canvas pour essayer l’aperçu. Les compétences s’utilisent dans le chat. La consigne reprend la méthode nécessaire pour que tu puisses l’utiliser dans Canvas.</p>' : "") +
+    '<p class="proof">Résultat attendu : un fichier .html. Sur téléphone, commence par son aperçu dans l’assistant si l’ouverture du fichier téléchargé ne fonctionne pas.</p>' +
+    footerStep("create", "J’ai récupéré mon HTML ou un aperçu fonctionnel.");
+}
+
+const testLabels = [
+  "Une étape s’ouvre et la consigne à utiliser est visible.",
+  "Cocher le contrôle change l’avancement.",
+  "Sur un mini-cas, le résultat attendu d’une étape se vérifie."
+];
+
+function showCheck() {
+  const list = testLabels.map((t, i) =>
+    '<label class="field">' + html(t) + '<select data-proof="' + i + '">' +
+    [["", "À vérifier"], ["ok", "Réussi"], ["non", "À corriger"]].map(([v, label]) =>
+      '<option value="' + v + '"' + (state.check[i] === v ? ' selected' : '') + '>' + label + '</option>').join("") +
+    '</select></label>').join("");
+  return '<h3>Ouvrir et vérifier</h3><p class="sub">Ouvre ton propre HTML dans le navigateur ou dans l’aperçu de ton assistant.</p>' +
+    '<div class="field-grid" style="grid-template-columns:1fr">' + list + '</div>' +
+    '<div id="test-result" class="proof">' + testResult() + '</div>' +
+    snippet("Si une interaction est à corriger", "Dans mon fichier HTML, voici le test qui échoue : [test]. Voici ce que j’observe : [résultat réel]. Corrige ce point, restitue le fichier entier et indique ce que je dois rejouer.") +
+    '<div class="row"><button class="button" data-download="bilan">↓ Mon bilan .md</button></div>' +
+    footerStep("check", "J’ai exécuté les trois tests sur ma carte.");
+}
+
+function testResult() {
+  const completed = state.check.filter(Boolean).length;
+  const passed = state.check.filter(item => item === "ok").length;
+  return completed === 3 ? passed + " test(s) réussi(s) sur 3." : completed + " test(s) renseigné(s) sur 3.";
+}
+
+function renderStep() {
+  const panels = {profile:showProfile, skill:showSetup, problem:showProblem, create:showCreate, check:showCheck};
+  byId("step-panel").innerHTML = panels[active]();
+}
+
+const tabs = ["parcours", "comprendre", "skills", "situations", "exemple"];
+const guideTargets = ["reperes-outils", "raccourcis", "trouver-un-outil", "essai-skill", "essai-connecteur"];
+
+function openTab(next, {move = false, updateHash = false, target = ""} = {}) {
+  if (guideTargets.includes(next)) {
+    target = next;
+    next = "comprendre";
+  }
+  if (next === "extras") next = "comprendre";
+  if (!tabs.includes(next)) next = "parcours";
+  const hash = "#" + (target || next);
+  if (updateHash && location.hash !== hash) history.replaceState(null, "", hash);
+  document.querySelectorAll(".view").forEach(v => { v.hidden = v.id !== "view-" + next; });
+  document.querySelectorAll("[data-tab]").forEach(a => {
+    if (a.dataset.tab === next) a.setAttribute("aria-current", "page");
+    else a.removeAttribute("aria-current");
+  });
+  if (next === "exemple") renderSample();
+  if (move || target) {
+    const view = byId(target) || byId("view-" + next);
+    if (view.matches("details")) view.open = true;
+    const heading = view.querySelector("h2, h3, summary, article h3");
+    heading.tabIndex = -1;
+    heading.focus({preventScroll:true});
+    view.scrollIntoView({block:"start"});
+  }
+}
+
+function stepTo(key, scroll = true) {
+  if (!routes.some(step => step[0] === key)) return;
+  active = key;
+  openTab("parcours", {updateHash:scroll});
+  renderRail();
+  renderStep();
+  const panel = byId("step-panel");
+  panel.querySelector("h3").tabIndex = -1;
+  panel.querySelector("h3").focus({preventScroll:true});
+  if (scroll) panel.scrollIntoView({block:"nearest"});
+}
+
+function renderSkills() {
+  byId("skill-grid").innerHTML = skills.map(skill =>
+    '<article class="skill-card" data-color="' + skill.color + '"><small>' + html(skill.tag) + '</small><h3>' + html(skill.name) +
+    '</h3><p>' + html(skill.summary) + '</p>' + downloadsFor(skill) +
+    '<button class="button" data-choose-skill="' + skill.id + '">Essayer cette méthode →</button>' +
+    '<details><summary>Contenu et test</summary>' + snippet("SKILL.md", skill.markdown) +
+    snippet("Test à envoyer", skill.test) + '<p class="proof">' + html(skill.proof) + '</p>' +
+    (skill.credit ? '<p class="micro">' + link(skill.credit.label, skill.credit.url) + '</p>' : '') + '</details></article>').join("");
+}
+
+const toolCards = [
+  {
+    id:"essai-skill", type:"Skill", color:"teal", title:"Réutiliser une méthode",
+    intro:"Un skill décrit une façon de travailler. Le fichier SKILL.md précise quand l’utiliser et comment produire un résultat. Un skill peut aussi fournir des références, des modèles ou des scripts.",
+    steps:[
+      "Ouvre un SKILL.md de la bibliothèque. Repère le nom et la description tout en haut, puis les étapes et la forme du résultat.",
+      "Ajoute la méthode dans ton assistant si l’option existe. Pour l’appeler, utilise le sélecteur @ dans ChatGPT éligible, / ou @ dans Gemini, /nom-du-skill dans Claude Code et $nom-du-skill dans Codex CLI. Dans Claude chat, demande la méthode par son nom et vérifie qu’elle est activée.",
+      "Envoie le même mini-cas dans une nouvelle discussion. Vérifie si l’assistant applique bien la méthode.",
+    ],
+    prompt:skills.find(skill => skill.id === "controle-sur-pieces").test,
+    proof:"Les deux montants HT et l’écart de surface sont corrects. Chaque valeur cite une ligne source.",
+    fallback:"Si ton compte ne propose aucune installation, copie la méthode complète et le test dans le même chat.",
+    action:["skills", "Ouvrir la bibliothèque"],
+    links:[["Format Agent Skills", "https://agentskills.io/specification"]]
+  },
+  {
+    id:"essai-connecteur", type:"Connecteur", color:"blue", title:"Retrouver la bonne pièce",
+    intro:"Une app connectée peut retrouver un document sans que tu l’importes manuellement. L’accès dépend de l’application, de ton compte et des opérations autorisées.",
+    steps:[
+      "Choisis un dossier de test qui contient deux versions fictives d’un même plan. Garde en tête l’indice et le statut que tu attends.",
+      "Dans Gemini, ouvre Paramètres → Applis connectées, puis sélectionne Drive avec @ s’il apparaît. Dans ChatGPT, ouvre le répertoire d’apps, connecte le service disponible, puis sélectionne-le avec @ ou +. Dans Claude, ouvre + ou / → Connecteurs et active le service visible.",
+      "Demande le titre, l’indice et le statut avec le lien d’origine. Ouvre le lien pour contrôler la pièce utilisée."
+    ],
+    prompt:"Cherche dans le dossier de test les plans P02. Donne pour chacun son lien, son indice et son statut visible dans le cartouche. Lequel utiliserais-tu pour préparer une demande de visa ? Signale toute information introuvable.",
+    sample:"Cartouches fictifs à coller ou enregistrer comme deux pièces de test\nP02-B · statut POUR VISA · fichier modifié le 10 juin\nP02-C · statut BROUILLON · fichier modifié le 12 juin",
+    proof:"Le lien mène au bon document et l’indice correspond au cartouche. Une date de modification seule ne suffit pas à désigner l’indice applicable.",
+    fallback:"Si le service est indisponible ou bloqué par ton organisation, joins simplement les deux extraits autorisés à la discussion.",
+    links:[["Gemini",sources.geminiConnect],["ChatGPT",sources.chatgptConnect],["Claude",sources.claudeConnect]]
+  },
+  {
+    type:"MCP · Revit", color:"violet", title:"Interroger la maquette ouverte",
+    intro:"MCP permet à un assistant compatible d’appeler des outils exposés par un serveur. Une passerelle locale peut relier Codex à Revit pour lire la vue active ou lister des éléments.",
+    steps:[
+      "Sur un PC où Revit et la passerelle sont déjà configurés, ouvre une maquette d’exemple. Note le nom de l’onglet actuellement affiché.",
+      "Utilise le client connecté en lecture seule. Demande la vue active, change d’onglet dans Revit, puis refais la demande."
+    ],
+    prompt:"Avec la passerelle Revit, relève le nom et le type de la vue actuellement affichée. Lis seulement la vue active.",
+    proof:"Le nom et le type renvoyés correspondent à l’onglet affiché. Le nom change après le changement de vue.",
+    fallback:"Sans poste Revit équipé, utilise deux captures annotées du même projet fictif, ou un export IFC pour explorer les données du modèle.",
+    links:[["Passerelle BIMwright", "https://github.com/bimwright/rvt-mcp"], ["MCP dans Codex", "https://learn.chatgpt.com/docs/extend/mcp"]]
+  },
+  {
+    type:"IA locale", color:"teal", title:"Traiter un extrait sur le PC",
+    intro:"Avec un modèle téléchargé dans Ollama, tu peux faire traiter du texte par ton ordinateur. Pour cet essai, la source est un extrait fictif fourni à la main.",
+    steps:[
+      "Sur un PC compatible où Ollama est installé, ouvre un terminal et lance le modèle de texte avec la commande ci-dessous. Le premier lancement peut télécharger le modèle.",
+      "Colle ensuite le mini-cas dans le modèle. Compare sa réponse mot à mot avec l’extrait."
+    ],
+    command:"ollama run lfm3",
+    prompt:"Extrait fictif : VMC Flex, 2 unités à 390 € HT, fournisseur S01. Rends cinq champs : désignation, quantité, prix unitaire HT, fournisseur, date. Indique « inconnue » pour une valeur absente.",
+    proof:"Les quatre valeurs données sont exactes. La date reste inconnue.",
+    fallback:"Si le modèle local est indisponible, fais le test avec le même extrait fictif dans ton assistant habituel.",
+    links:[["Installer Ollama sous Windows", "https://docs.ollama.com/windows"],["Modèle LFM3", "https://ollama.com/library/lfm3"]]
+  },
+  {
+    type:"Automatisation", color:"orange", title:"Préparer un brouillon à réception",
+    intro:"Dans n8n, un déclencheur lance une suite d’actions. Une boîte de test permet d’essayer le traitement d’un devis et la préparation d’un brouillon à relire.",
+    steps:[
+      "Dans une instance n8n et une boîte de test autorisée, configure un déclencheur Gmail et un filtre sur le sujet « Devis test ». Utilise un texte fictif dans le corps du message.",
+      "Fais produire le texte de réponse, puis utilise Gmail → Draft → Create. Contrôle le destinataire et le texte dans les brouillons.",
+      "Envoie-toi un message de test sans le mot-clé et un autre avec le mot-clé. Vérifie que seul le second crée un brouillon."
+    ],
+    prompt:"À partir du message de test, rédige trois phrases. Accuse réception, demande la référence manquante et laisse la date de réponse à confirmer. Donne uniquement le texte du brouillon.",
+    proof:"Un seul brouillon apparaît, associé au message attendu et disponible pour relecture.",
+    fallback:"Sans n8n ni boîte de test, tape le message fictif dans le chat et prépare le brouillon à la main.",
+    links:[["Créer un brouillon avec n8n", "https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.gmail/draft-operations/"]]
+  }
+];
+
+function renderTools() {
+  byId("tool-grid").innerHTML = toolCards.map(card =>
+    '<details class="tool-card"' + (card.id ? ' id="' + card.id + '"' : '') + ' data-color="' + card.color + '"><summary><span><small>' + html(card.type) +
+    '</small><strong>' + html(card.title) + '</strong></span></summary><div class="tool-content"><p>' + html(card.intro) +
+    '</p><ol class="steps">' + card.steps.map(step => '<li>' + html(step) + '</li>').join("") + '</ol>' +
+    (card.command ? snippet("Commande à lancer", card.command) : "") +
+    (card.sample ? snippet("Données fictives pour faire le test", card.sample) : "") + snippet("Essai à copier", card.prompt) +
+    (card.sample ? snippet("Sans connecteur · consigne à copier", "À partir des cartouches fictifs que je te fournis, identifie le plan P02 à utiliser pour une demande de visa. Justifie ton choix avec l’indice et le statut. Signale les données manquantes.") : "") +
+    '<p class="proof"><strong>Vérifie</strong> · ' + html(card.proof) + '</p><p class="micro"><strong>Si l’accès manque</strong> · ' +
+    html(card.fallback) + '</p><ul class="source-list">' + card.links.map(([label, url]) => '<li>' +
+    link(label, url) + '</li>').join("") + '</ul>' +
+    (card.action ? '<button class="button" data-go="' + card.action[0] + '">' + html(card.action[1]) + ' →</button>' : '') +
+    '</div></details>').join("");
+}
+
+const watchPrompt = "J’utilise [assistant et type de compte] sur [appareil]. Je veux [tâche concrète]. Cherche sur le Web et dans les dépôts GitHub d’origine jusqu’à trois skills utiles. Pour chacun, donne le lien vers SKILL.md, la licence, la date ou version vérifiée, les éventuels scripts, les prérequis, le coût et la façon de l’activer dans mon assistant. Propose un test de cinq minutes en français. Signale les points non confirmés. Si l’import est indisponible, propose une méthode courte à coller dans le chat.";
+const connectorWatch = "J’utilise [assistant et type de compte] sur [appareil]. Je veux lire [source] pour obtenir [résultat] depuis [service ou logiciel et sa version]. Cherche d’abord dans le répertoire et la documentation d’origine, puis dans les dépôts MCP si nécessaire. Pour chaque option, donne le lien officiel, les plans requis, le coût éventuel, les droits demandés, les opérations prises en charge et une procédure de test en lecture seule. Vérifie si je peux la sélectionner avec @ ou par un menu. Indique ce qui reste à vérifier. Donne une solution avec un export autorisé si la connexion manque.";
+
+const exampleSteps = [
+  {title:"Comparer les indices", action:"Ouvre P02-A et P02-B. Note l’objet, ses deux positions et leur écart.", prompt:"Plan P02 indice A : porte P3 à 60 cm de l’angle. Indice B : 90 cm. Donne l’écart, l’unité et le repère source.", proof:"La porte s’est déplacée de 30 cm. La réponse cite P02 et les indices A et B."},
+  {title:"Vérifier l’interface", action:"Cherche quel équipement est touché et ce que tu peux confirmer sur les pièces disponibles.", prompt:"Un interrupteur était prévu près de l’ancienne position de P3. Explique ce qu’il faut vérifier auprès du lot électricité.", proof:"L’interrupteur est à vérifier. Sa position effective reste inconnue."},
+  {title:"Préparer le message", action:"Écris le message au lot concerné et relis le point dont il doit confirmer la position.", prompt:"Rédige un message court au lot électricité. Cite P02-B, P3 et demande de confirmer la position de l’interrupteur après le déplacement.", proof:"Le message cite un plan, un objet et une action de vérification."}
+];
+
+function renderSample() {
+  const item = exampleSteps[exampleIndex];
+  byId("sample-demo").innerHTML = '<p class="micro">Cas fictif · Observation à vérifier côté électricité après le déplacement d’une porte.</p>' +
+    '<div class="sample-tabs" style="margin-top:12px">' + exampleSteps.map((step, index) =>
+      '<button class="button" data-sample="' + index + '" aria-pressed="' + (index === exampleIndex) + '">' +
+      html(step.title) + '</button>').join("") + '</div><h3>' + html(item.title) + '</h3><p>' + html(item.action) +
+      '</p>' + snippet("Consigne prête à copier", item.prompt) + '<p class="proof"><strong>Test :</strong> ' + html(item.proof) + '</p>';
+}
+
+function sampleFile() {
+  const markup = exampleSteps.map(step => '<details><summary>' + html(step.title) + '</summary><p>' + html(step.action) + '</p><p><b>Consigne</b> ' +
+    html(step.prompt) + '</p><p><b>Contrôle</b> ' + html(step.proof) + '</p><label><input type="checkbox"> Contrôle effectué</label></details>').join("");
+  return '<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
+    '<title>Plan révisé — Carte exemple</title><style>body{font:16px system-ui;color:#192c49;background:#eef3fc;max-width:760px;margin:24px auto;padding:0 16px}details{background:white;padding:14px;margin:12px 0;border-radius:12px}summary,label{cursor:pointer}progress{accent-color:#3159dd}</style>' +
+    '<h1>Que vérifier après une révision de plan ?</h1><p>Cas fictif · La porte P3 change d’implantation entre les indices A et B du plan P02.</p><p id="count" role="status">0 sur 3</p><progress max="3" value="0" aria-label="Progression"></progress>' + markup +
+    '<script>document.addEventListener("change",()=>{const n=document.querySelectorAll("input:checked").length; document.querySelector("progress").value=n; document.querySelector("#count").textContent=n+" sur 3";});\u003c/script></html>';
+}
+
+const caseFields = [
+  {
+    id:"devis", type:"Économie", color:"teal", title:"Un artisan renvoie son devis", skill:"controle-sur-pieces",
+    tools:"Skill « Contrôler à partir des pièces » et tableur pour recalculer les montants. Tu peux joindre deux extraits anonymisés.",
+    sample:"Devis V1, p. 2 : peinture 40 m² à 12 €/m² HT. V2, p. 3 : même ligne et protection des sols, 80 € HT. Explique l’écart, cite les pages et pose une question sur le périmètre restant à confirmer.",
+    problem:"Je dois comprendre ce qui a changé entre un devis initial et sa révision avant de répondre à l’artisan.",
+    inputs:"Deux extraits anonymisés du même devis, V1 et V2, avec pages, quantités, prix et périmètres.",
+    result:"Un comparateur qui affiche les écarts de prix, de quantités et de prestations, avec les pages à relire.",
+    proof:"Retrouver une prestation ajoutée en V2 et vérifier si elle explique une partie de l’écart HT."
+  },
+  {
+    id:"plan", type:"Documents", color:"blue", title:"Trois plans circulent dans le dossier", skill:"plan-revise",
+    tools:"Connecteur Drive si disponible. Sinon, joins les cartouches fictifs du dossier. Reprends la méthode « Traiter un plan révisé ».",
+    sample:"P02-A est archivé, P02-B porte le statut POUR VISA, P02-C est le plus récent mais porte le statut BROUILLON. Quel plan utiliser pour la demande de visa ? Justifie avec les indices et les statuts.",
+    problem:"Je dois retrouver le bon plan P02 pour une demande de visa alors que plusieurs indices circulent.",
+    inputs:"Trois cartouches fictifs de P02 ou un dossier de test sur Drive, avec dates, indices et statuts.",
+    result:"Une carte pour vérifier les indices et les statuts, citer chaque pièce et identifier celle à utiliser.",
+    proof:"Le plan proposé correspond à l’indice et au statut attendus. L’outil écarte une pièce plus récente qui n’a pas le bon statut."
+  },
+  {
+    id:"visite", type:"Terrain", color:"orange", title:"Je rentre de chantier avec des photos et des notes", skill:"question-technique",
+    tools:"Skill « Poser une question technique de chantier » avec les photos autorisées ou leurs descriptions. Une mesure peut rester nécessaire sur place.",
+    sample:"Photo fictive A, niveau 1 axe C : une réservation est visible sans cote. Photo B : le repère est illisible. Note : le lot ventilation attend une confirmation. Prépare une question et précise la pièce à joindre.",
+    problem:"Je dois rendre mes observations exploitables à partir de photos et de notes dispersées.",
+    inputs:"Deux photos fictives décrites par zone, une note de visite et un extrait de plan identifié.",
+    result:"Une fiche qui relie chaque photo à son observation et sépare les faits, les questions et les actions confirmées.",
+    proof:"Une photo sans cote déclenche une demande de vérification. L’outil n’invente ni mesure, ni échéance, ni responsable."
+  },
+  {
+    id:"planning", type:"Conduite de travaux", color:"teal", title:"Le planning bouge à cause d’une livraison", skill:"planning-trois-semaines",
+    tools:"Skill « Préparer les trois prochaines semaines » avec le planning et l’information fournisseur. Un tableau suffit pour tester les dépendances.",
+    sample:"Planning P07-B : pose des portes le 18 juin, peinture le 20 après la pose. Livraison annoncée du 17 au 21 juin. Identifie les tâches exposées et la première date à confirmer.",
+    problem:"Je dois identifier ce que retarde une livraison incertaine pour décider quoi confirmer cette semaine.",
+    inputs:"Un extrait de planning avec dépendances et une date de livraison communiquée sous forme de fourchette.",
+    result:"Une carte des tâches touchées et des décisions à prendre, classées par échéance.",
+    proof:"Si les portes arrivent après la date de pose, la carte repère le risque sur la pose et la peinture prévue ensuite."
+  },
+  {
+    id:"revit", type:"BIM", color:"violet", title:"Un appareil est déplacé dans Revit", skill:"plan-revise",
+    tools:"Revit et passerelle MCP sur un poste configuré, ou deux captures et un relevé d’objets fictif. Applique la méthode « Traiter un plan révisé » aux pièces avant et après.",
+    sample:"Maquette d’essai : lavabo L03 déplacé de 1,20 m le long du mur. Le raccord dans le modèle plomberie est encore à l’ancienne position. L’extrait de plan annoté n’est pas fourni. Que peux-tu constater et que faut-il vérifier ?",
+    problem:"Je dois reprendre les vérifications de coordination après le déplacement d’un appareil sanitaire dans une maquette d’essai.",
+    inputs:"Deux vues avant/après et, si j’y ai accès, les identifiants des objets ainsi que le lien de plomberie.",
+    result:"Une fiche des annotations, cotes et raccordements à vérifier autour de la modification, avec leurs repères.",
+    proof:"La fiche signale un raccord resté à l’ancienne position si les données le montrent et repère les points qui exigent encore une vue ou un relevé."
+  },
+  {
+    id:"mail", type:"Automatisation", color:"blue", title:"La même demande arrive chaque semaine par mail", skill:"controle-sur-pieces",
+    tools:"n8n et une boîte Gmail de test pour créer un brouillon, ou le même essai à la main dans le chat. Relis le destinataire et le texte.",
+    sample:"Message A « Devis test ventilation » : référence V01, quantité absente. Message B « Informations planning » : aucun devis. Simule le filtre et écris uniquement le brouillon utile, sans envoi.",
+    problem:"Je veux traiter plus vite les demandes récurrentes en gardant la main sur la réponse finale.",
+    inputs:"Deux messages fictifs, un avec le mot-clé « Devis test » et un sans, et les références fournies.",
+    result:"Un parcours pour filtrer les messages et préparer un brouillon à relire, sans envoyer de réponse.",
+    proof:"Seul le message avec le mot-clé produit un brouillon. Le texte reprend la référence connue et demande celle qui manque."
+  }
+];
+
+const briefFields = ["problem", "inputs", "result", "proof"];
+
+function renderCases() {
+  byId("case-grid").innerHTML = caseFields.map(item => {
+    const skill = skills.find(candidate => candidate.id === item.skill);
+    return '<article class="case-card" data-color="' + item.color + '"><small>' + html(item.type) +
+      '</small><h3>' + html(item.title) + '</h3><p>' + html(item.result) + '</p>' +
+      '<details><summary>Voir le premier essai</summary><p><strong>Point de départ</strong> · ' +
+      html(item.inputs) + '</p><p><strong>Test</strong> · ' + html(item.proof) + '</p><p><strong>Méthode proposée</strong> · ' +
+      html(skill.name) + '</p><p><strong>Outils possibles</strong> · ' + html(item.tools) + '</p>' +
+      snippet("Mini-cas fictif à copier", item.sample) + '</details><button class="button" data-example="' + item.id +
+      '">Partir de ce cas <span aria-hidden="true">→</span></button></article>';
+  }).join("");
+}
+
+function useCase(id) {
+  const example = caseFields.find(item => item.id === id);
+  if (!example) return;
+  const changed = briefFields.some(key => state[key] !== example[key]);
+  if (changed && briefFields.some(key => state[key].trim()) &&
+      !confirm("Remplacer les champs de ton brief par cet exemple et reprendre sa méthode ?")) return;
+  for (const key of briefFields) state[key] = example[key];
+  state.caseId = example.id;
+  if (state.skill !== example.skill) state.done.skill = false;
+  state.skill = example.skill;
+  state.done.problem = false;
+  resetOutput();
+  save();
+  stepTo("problem");
+  tell("Brief prérempli. Adapte-le, puis ouvre « Créer sa carte métier ».");
+}
+
+document.addEventListener("click", event => {
+  const button = event.target.closest("button");
+  if (!button) return;
+  const data = button.dataset;
+  if (data.copy !== undefined) return void copy(button);
+  if (data.go) {
+    if (data.step) stepTo(data.step);
+    else openTab(data.go, {move:true, updateHash:true, target:data.target || ""});
+    return;
+  }
+  if (data.step) return stepTo(data.step);
+  if (data.chooseSkill) {
+    if (state.skill !== data.chooseSkill) { state.done.skill = false; resetOutput(); }
+    state.skill = data.chooseSkill; save(); return stepTo("skill");
+  }
+  if (data.sample !== undefined) {
+    exampleIndex = Number(data.sample);
+    renderSample();
+    document.querySelector('[data-sample="' + exampleIndex + '"]').focus();
+    return;
+  }
+  if (data.example) return useCase(data.example);
+  if (data.download) {
+    const s = skills.find(x => x.id === data.id);
+    const content = {
+      zip: s ? [s.id + ".zip", Uint8Array.from(atob(s.archive), c => c.charCodeAt(0)), "application/zip"] : null,
+      md: s ? ["SKILL.md", s.markdown, "text/markdown;charset=utf-8"] : null,
+      brief: ["Mon_brief_carte_metier.md", missionBrief(), "text/markdown;charset=utf-8"],
+      prompt: ["Ma_consigne_carte_metier.txt", generationPrompt(), "text/plain;charset=utf-8"],
+      bilan: ["Mon_bilan_carte_metier.md", missionBrief() + "\n\n## Tests\n" + testLabels.map((t,i) =>
+        "- " + t + " " + ({ok:"Réussi",non:"À corriger"}[state.check[i]] || "À vérifier")).join("\n"), "text/markdown;charset=utf-8"]
+    }[data.download];
+    if (content) download(...content);
+  }
+});
+
+document.addEventListener("input", event => {
+  const target = event.target;
+  if (!target.matches("input[type=text][data-field], textarea[data-field]")) return;
+  state[target.dataset.field] = target.value;
+  state.done.problem = false; resetOutput();
+  const checkbox = document.querySelector('[data-done="problem"]');
+  if (checkbox) checkbox.checked = false;
+  save(); renderRail();
+});
+
+document.addEventListener("change", event => {
+  const target = event.target;
+  const data = target.dataset;
+  if (target.matches("select[data-field]")) {
+    state[data.field] = target.value;
+    state.done.skill = false;
+    resetOutput();
+    if (["device","assistant","account","mode"].includes(data.field)) state.done.profile = false;
+    save(); renderRail(); renderStep();
+    const reselect = document.querySelector('[data-field="' + data.field + '"]');
+    if (reselect) reselect.focus({preventScroll:true});
+  }
+  if (data.proof !== undefined) {
+    state.check[Number(data.proof)] = target.value;
+    if (state.check.some(item => !item)) {
+      state.done.check = false;
+      document.querySelector('[data-done="check"]').checked = false;
+    }
+    byId("test-result").textContent = testResult(); save(); renderRail();
+  }
+  if (data.done) {
+    const missing = {profile:!state.device || !state.assistant,
+      problem:["problem","inputs","result","proof"].some(key => !state[key].trim()),
+      check:state.check.some(item => !item)};
+    if (target.checked && missing[data.done]) {
+      target.checked = false;
+      tell("Renseigne les choix ou les contrôles de cette étape avant de la valider.");
+      return;
+    }
+    state.done[data.done] = target.checked; save(); renderRail();
+    if (!storageAvailable) tell("Progression conservée pour cette page. Exporte ton brief avant de fermer.");
+  }
+});
+
+byId("start").onclick = () => stepTo("profile");
+byId("download-example").onclick = () => download("Exemple_Carte_Plan_Revise.html", sampleFile(), "text/html;charset=utf-8");
+byId("save-html").onclick = () => download("Atelier_IA_BTP_V3.html", initialHtml, "text/html;charset=utf-8");
+byId("reset").onclick = () => {
+  if (!confirm("Effacer les champs et la progression de cet atelier dans ce navigateur ?")) return;
+  state = freshState(); save(); stepTo("profile"); tell("Progression réinitialisée.");
+};
+byId("copy-dialog").onclose = () => copyButton?.focus();
+byId("watch-prompt").innerHTML = snippet("Prompt à copier · trouver un skill", watchPrompt);
+byId("watch-connector").innerHTML = snippet("Prompt à copier · trouver un connecteur", connectorWatch);
+window.addEventListener("hashchange", () => openTab(location.hash.slice(1)));
+document.querySelectorAll("[data-tab]").forEach(anchor => {
+  anchor.addEventListener("click", event => {
+    event.preventDefault();
+    openTab(anchor.dataset.tab, {move:true, updateHash:true});
+  });
+});
+renderRail(); renderStep(); renderSkills(); renderTools(); renderCases(); openTab(location.hash.slice(1));
+</script>
+</body></html>
